@@ -34,6 +34,7 @@ namespace TournamentProj
             //Injectier DB context i controller
             services.AddScoped<IDatabaseContext>(provider => provider.GetService<DatabaseContext>());
             services.AddControllers();
+            services.AddMvc().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TournamentProj", Version = "v1"});

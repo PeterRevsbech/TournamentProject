@@ -4,23 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TournamentProj.Context;
+using TournamentProj.DTO;
 using TournamentProj.Model;
 
 namespace TournamentProj.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/Tournament")]
     public class TournamentController : ControllerBase
     {
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<TournamentController> _logger;
         private readonly IDatabaseContext _dbContext;
+        private TournamentMapper _tournamentMapper;
 
-        public TournamentController(ILogger<WeatherForecastController> logger, IDatabaseContext dbContext)
+        public TournamentController(ILogger<TournamentController> logger, IDatabaseContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
+            _tournamentMapper = new TournamentMapper();
         }
 
         [HttpGet]
@@ -29,20 +34,27 @@ namespace TournamentProj.Controllers
             return _dbContext.Tournaments.ToArray();
         }
         
-        [HttpPost]
-        public Tournament Post()
+        [Route("{tournamentId:int}")]
+        [HttpGet]
+        public IActionResult Get(int tournamentId)
         {
-            var t = new Tournament()
-            {
-                Name = "Peter"
-            };
-            _dbContext.Tournaments.Add(t);
+            var tournament = _dbContext.Tournaments.Find(tournamentId);
+            return Ok(_tournamentMapper.ToDTO(tournament));
+        }
+        
+        [HttpPost]
+        public IActionResult Post(JObject payload)
+        {
+            var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
+            Tournament tournament = _tournamentMapper.FromDTO(tournamentDto);
+            _dbContext.Tournaments.Add(tournament);
             _dbContext.SaveChanges();
-            return t;
+            
+            return Ok(_tournamentMapper.ToDTO(tournament));
         }
         
         [HttpPut]
-        public Tournament Put()
+        public IActionResult Put(JObject payload)
         {
             var t = new Tournament()
             {
@@ -50,19 +62,17 @@ namespace TournamentProj.Controllers
             };
             _dbContext.Tournaments.Add(t);
             _dbContext.SaveChanges();
-            return t;
+            return Ok(payload);
         }
         
+        [Route("{tournamentId:int}")]
         [HttpDelete]
-        public Tournament Delete()
+        public Tournament Delete(int tournamentId)
         {
-            var t = new Tournament()
-            {
-                Name = "Peter"
-            };
-            _dbContext.Tournaments.Add(t);
+            var tournament = _dbContext.Tournaments.Find(tournamentId);
+            _dbContext.Tournaments.Remove(tournament);
             _dbContext.SaveChanges();
-            return t;
+            return tournament;
         }
         
         
