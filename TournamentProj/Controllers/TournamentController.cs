@@ -40,5 +40,31 @@ namespace TournamentProj.Controllers
             _dbContext.SaveChanges();
             return t;
         }
+        
+        [HttpPut]
+        public Tournament Put()
+        {
+            var t = new Tournament()
+            {
+                Name = "Peter"
+            };
+            _dbContext.Tournaments.Add(t);
+            _dbContext.SaveChanges();
+            return t;
+        }
+        
+        [HttpDelete]
+        public Tournament Delete()
+        {
+            var t = new Tournament()
+            {
+                Name = "Peter"
+            };
+            _dbContext.Tournaments.Add(t);
+            _dbContext.SaveChanges();
+            return t;
+        }
+        
+        
     }
 }
