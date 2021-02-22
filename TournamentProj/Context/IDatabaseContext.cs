@@ -5,8 +5,13 @@ namespace TournamentProj.Context
 {
     public interface IDatabaseContext 
     {
-        DbSet<Tournament> Tournaments { get; set; }
+        public DbSet<Tournament> Tournaments { get; set; }
         
+        public DbSet<Player> Players { get; set; }
+        
+        public DbSet<Draw> Draws { get; set; }
+        
+        public DbSet<Match> Matches { get; set; }
         int SaveChanges();
     }
 }

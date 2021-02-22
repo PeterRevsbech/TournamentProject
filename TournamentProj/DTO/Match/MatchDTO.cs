@@ -1,4 +1,4 @@
-﻿namespace TournamentProj.DTO
+﻿namespace TournamentProj.DTO.Match
 {
     public class MatchDTO
     {

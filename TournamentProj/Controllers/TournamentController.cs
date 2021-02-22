@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TournamentProj.Context;
-using TournamentProj.DTO;
+using TournamentProj.DTO.Tournament;
 using TournamentProj.Model;
 
 namespace TournamentProj.Controllers
@@ -29,9 +29,9 @@ namespace TournamentProj.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Tournament> Get()
+        public IEnumerable<TournamentDTO> Get()
         {
-            return _dbContext.Tournaments.ToArray();
+            return _tournamentMapper.ToDtoArray(_dbContext.Tournaments.ToArray());
         }
         
         [Route("{tournamentId:int}")]

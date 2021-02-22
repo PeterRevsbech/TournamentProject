@@ -1,4 +1,7 @@
-﻿using TournamentProj.DTO;
+﻿using System.Collections.Generic;
+using TournamentProj.DTO;
+using TournamentProj.DTO.Player;
+using TournamentProj.DTO.Tournament;
 using TournamentProj.Model;
 
 public class TournamentMapper : ITournamentMapper
@@ -20,4 +23,14 @@ public class TournamentMapper : ITournamentMapper
     }
         
         
+    public IEnumerable<TournamentDTO> ToDtoArray(IEnumerable<Tournament> list)
+    {
+        var dtos = new List<TournamentDTO>();
+        foreach (var item in list)
+        {
+            dtos.Add(ToDTO(item));
+        }
+
+        return dtos;
+    }
 }
