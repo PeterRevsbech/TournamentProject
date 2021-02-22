@@ -35,6 +35,7 @@ namespace TournamentProj.Controllers
         }
         
         
+        
         [Route("{id:int}")]
         [HttpGet]
         public IActionResult Get(int id)
@@ -54,6 +55,7 @@ namespace TournamentProj.Controllers
             return Ok(_playerMapper.ToDTO(result));
         }
         
+        
         [HttpPut]
         public IActionResult Put(JObject payload)
         {
@@ -65,16 +67,18 @@ namespace TournamentProj.Controllers
             return Ok(result);
         }
         
+        
         [Route("{id:int}")]
         [HttpDelete]
-        public Tournament Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var result = _dbContext.Tournaments.Find(id);
-            _dbContext.Tournaments.Remove(result);
+            var result = _dbContext.Players.Find(id);
+            _dbContext.Players.Remove(result);
             _dbContext.SaveChanges();
-            return result;
+            return Ok(result);
         }
         
         
     }
+    
 }

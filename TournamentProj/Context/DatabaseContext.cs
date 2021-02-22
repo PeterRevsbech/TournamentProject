@@ -14,9 +14,9 @@ namespace TournamentProj.Context
         
         public DbSet<Player> Players { get; set; }
         
-        public DbSet<Draw> Draws { get; set; }
+        //public DbSet<Draw> Draws { get; set; }
         
-        public DbSet<Match> Matches { get; set; }
+        //public DbSet<Match> Matches { get; set; }
         
     }
 }
