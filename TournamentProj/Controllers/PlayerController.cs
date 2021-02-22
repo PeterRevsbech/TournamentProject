@@ -19,19 +19,19 @@ namespace TournamentProj.Controllers
     {
         private readonly ILogger<PlayerController> _logger;
         private readonly IDatabaseContext _dbContext;
-        private PlayerMapper _playerMapper;
+        private IPlayerMapper _mapper;
 
         public PlayerController(ILogger<PlayerController> logger, IDatabaseContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
-            _playerMapper = new PlayerMapper();
+            _mapper = new PlayerMapper();
         }
 
         [HttpGet]
         public IEnumerable<PlayerDTO> Get()
         {
-            return _playerMapper.ToDtoArray(_dbContext.Players.ToArray());
+            return _mapper.ToDtoArray(_dbContext.Players.ToArray());
         }
         
         
@@ -41,18 +41,18 @@ namespace TournamentProj.Controllers
         public IActionResult Get(int id)
         {
             var result = _dbContext.Players.Find(id);
-            return Ok(_playerMapper.ToDTO(result));
+            return Ok(_mapper.ToDTO(result));
         }
         
         [HttpPost]
         public IActionResult Post(JObject payload)
         {
             var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
-            var result = _playerMapper.FromDTO(dto);
+            var result = _mapper.FromDTO(dto);
             _dbContext.Players.Add(result);
             _dbContext.SaveChanges();
             
-            return Ok(_playerMapper.ToDTO(result));
+            return Ok(_mapper.ToDTO(result));
         }
         
         
@@ -60,7 +60,7 @@ namespace TournamentProj.Controllers
         public IActionResult Put(JObject payload)
         {
             var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
-            var result = _playerMapper.FromDTO(dto);
+            var result = _mapper.FromDTO(dto);
 
             _dbContext.Players.Update(result);
             _dbContext.SaveChanges();

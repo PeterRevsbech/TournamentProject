@@ -35,7 +35,53 @@ namespace TournamentProj.Model
                     Id = 3,
                     Name = "Pool med vennerne"
                 });
+            
+            context.Draws.AddRange(
+                new Draw()
+                {
+                    Id = 1,
+                    Name = "DU17 Hovedturnering",
+                    TournamentId = 1
+                },
+                new Draw()
+                {
+                    Id = 2,
+                    Name = "DU15 Hovedturnering",
+                    TournamentId = 1
+                }
+                ,
+                new Draw()
+                {
+                    Id = 3,
+                    Name = "DU13 Hovedturnering",
+                    TournamentId = 1
+                }
+                ,
+                new Draw()
+                {
+                    Id = 4,
+                    Name = "PU17 Puljespil",
+                    TournamentId = 2
+                }
+                ,
+                new Draw()
+                {
+                    Id = 5,
+                    Name = "PU17 Hovedturnering",
+                    TournamentId = 2
+                }
+                ,
+                new Draw()
+                {
+                    Id = 6,
+                    Name = "Torsdag aften på Bobbys",
+                    TournamentId = 3
+                    
+                }
+            );
 
+            
+            
             context.SaveChanges();
         }
     }

@@ -4,12 +4,12 @@ using TournamentProj.Model;
 
 public class PlayerMapper : IPlayerMapper
 {
-    public Player FromDTO(PlayerDTO playerDto)
+    public Player FromDTO(PlayerDTO dto)
     {
         var player = new Player()
         {
-            Name = playerDto.Name,
-            Id = playerDto.Id
+            Name = dto.Name,
+            Id = dto.Id
                 
         };
        
