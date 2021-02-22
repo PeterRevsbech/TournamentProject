@@ -46,7 +46,7 @@ namespace TournamentProj.Controllers
         public IActionResult Post(JObject payload)
         {
             var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
-            Tournament tournament = _tournamentMapper.FromDTO(tournamentDto);
+            var tournament = _tournamentMapper.FromDTO(tournamentDto);
             _dbContext.Tournaments.Add(tournament);
             _dbContext.SaveChanges();
             
@@ -56,13 +56,12 @@ namespace TournamentProj.Controllers
         [HttpPut]
         public IActionResult Put(JObject payload)
         {
-            var t = new Tournament()
-            {
-                Name = "Peter"
-            };
-            _dbContext.Tournaments.Add(t);
+            var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
+            var tournament = _tournamentMapper.FromDTO(tournamentDto);
+
+            _dbContext.Tournaments.Update(tournament);
             _dbContext.SaveChanges();
-            return Ok(payload);
+            return Ok(tournament);
         }
         
         [Route("{tournamentId:int}")]
