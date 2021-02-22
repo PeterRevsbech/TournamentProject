@@ -34,44 +34,45 @@ namespace TournamentProj.Controllers
             return _playerMapper.ToDtoArray(_dbContext.Players.ToArray());
         }
         
-        [Route("{tournamentId:int}")]
+        
+        [Route("{id:int}")]
         [HttpGet]
-        public IActionResult Get(int tournamentId)
+        public IActionResult Get(int id)
         {
-            var tournament = _dbContext.Tournaments.Find(tournamentId);
-            return Ok(_playerMapper.ToDTO(tournament));
+            var result = _dbContext.Players.Find(id);
+            return Ok(_playerMapper.ToDTO(result));
         }
         
         [HttpPost]
         public IActionResult Post(JObject payload)
         {
-            var tournamentDto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
-            var tournament = _playerMapper.FromDTO(tournamentDto);
-            _dbContext.Tournaments.Add(tournament);
+            var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
+            var result = _playerMapper.FromDTO(dto);
+            _dbContext.Players.Add(result);
             _dbContext.SaveChanges();
             
-            return Ok(_playerMapper.ToDTO(tournament));
+            return Ok(_playerMapper.ToDTO(result));
         }
         
         [HttpPut]
         public IActionResult Put(JObject payload)
         {
-            var tournamentDto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
-            var tournament = _tournamentMapper.FromDTO(tournamentDto);
+            var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
+            var result = _playerMapper.FromDTO(dto);
 
-            _dbContext.Tournaments.Update(tournament);
+            _dbContext.Players.Update(result);
             _dbContext.SaveChanges();
-            return Ok(tournament);
+            return Ok(result);
         }
         
-        [Route("{tournamentId:int}")]
+        [Route("{id:int}")]
         [HttpDelete]
-        public Tournament Delete(int tournamentId)
+        public Tournament Delete(int id)
         {
-            var tournament = _dbContext.Tournaments.Find(tournamentId);
-            _dbContext.Tournaments.Remove(tournament);
+            var result = _dbContext.Tournaments.Find(id);
+            _dbContext.Tournaments.Remove(result);
             _dbContext.SaveChanges();
-            return tournament;
+            return result;
         }
         
         

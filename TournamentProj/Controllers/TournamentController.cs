@@ -34,12 +34,12 @@ namespace TournamentProj.Controllers
             return _tournamentMapper.ToDtoArray(_dbContext.Tournaments.ToArray());
         }
         
-        [Route("{tournamentId:int}")]
+        [Route("{id:int}")]
         [HttpGet]
-        public IActionResult Get(int tournamentId)
+        public IActionResult Get(int id)
         {
-            var tournament = _dbContext.Tournaments.Find(tournamentId);
-            return Ok(_tournamentMapper.ToDTO(tournament));
+            var result = _dbContext.Tournaments.Find(id);
+            return Ok(_tournamentMapper.ToDTO(result));
         }
         
         [HttpPost]
@@ -64,14 +64,14 @@ namespace TournamentProj.Controllers
             return Ok(tournament);
         }
         
-        [Route("{tournamentId:int}")]
+        [Route("{id:int}")]
         [HttpDelete]
-        public Tournament Delete(int tournamentId)
+        public IActionResult Delete(int id)
         {
-            var tournament = _dbContext.Tournaments.Find(tournamentId);
-            _dbContext.Tournaments.Remove(tournament);
+            var result = _dbContext.Tournaments.Find(id);
+            _dbContext.Tournaments.Remove(result);
             _dbContext.SaveChanges();
-            return tournament;
+            return Ok(_tournamentMapper.ToDTO(result));
         }
         
         
