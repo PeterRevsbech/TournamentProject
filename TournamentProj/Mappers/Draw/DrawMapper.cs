@@ -29,12 +29,9 @@ public class DrawMapper : IDrawMapper
 
     public IEnumerable<DrawDTO> ToDtoArray(IEnumerable<Draw> list)
     {
-        var dtos = new List<DrawDTO>();
         foreach (var item in list)
         {
-            dtos.Add(ToDTO(item));
+            yield return ToDTO(item);
         }
-
-        return dtos;
     }
 }

@@ -29,13 +29,10 @@ public class PlayerMapper : IPlayerMapper
 
     public IEnumerable<PlayerDTO> ToDtoArray(IEnumerable<Player> list)
     {
-        var dtos = new List<PlayerDTO>();
         foreach (var item in list)
         {
-            dtos.Add(ToDTO(item));
+            yield return ToDTO(item);
         }
-
-        return dtos;
     }
         
         
