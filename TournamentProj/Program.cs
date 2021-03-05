@@ -24,9 +24,9 @@ namespace TournamentProj
             //2. Find the service layer within our scope.
             using (var scope = host.Services.CreateScope())
             {
-                //3. Get the instance of DatabaseContext in our services layer
+                //3. Get the instance of TournamentContext in our services layer
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<DatabaseContext>();
+                var context = services.GetRequiredService<TournamentContext>();
 
                 //4. Call the DataGenerator to create sample data
                 DataGenerator.Initialize(services);

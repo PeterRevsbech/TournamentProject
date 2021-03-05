@@ -18,10 +18,10 @@ namespace TournamentProj.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly ILogger<PlayerController> _logger;
-        private readonly IDatabaseContext _dbContext;
+        private readonly ITournamentContext _dbContext;
         private IPlayerMapper _mapper;
 
-        public PlayerController(ILogger<PlayerController> logger, IDatabaseContext dbContext)
+        public PlayerController(ILogger<PlayerController> logger, ITournamentContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;

@@ -10,8 +10,8 @@ namespace TournamentProj.Model
     {
         public static void Initialize(IServiceProvider serviceProvider)
     {
-        using (var context = new DatabaseContext(
-            serviceProvider.GetRequiredService<DbContextOptions<DatabaseContext>>()))
+        using (var context = new TournamentContext(
+            serviceProvider.GetRequiredService<DbContextOptions<TournamentContext>>()))
         {
             // Look for any board games.
             if (context.Tournaments.Any())

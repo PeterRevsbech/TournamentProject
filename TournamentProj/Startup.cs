@@ -29,10 +29,10 @@ namespace TournamentProj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(opt =>
+            services.AddDbContext<TournamentContext>(opt =>
                 opt.UseInMemoryDatabase("Tournament"));
             //Injectier DB context i controller
-            services.AddScoped<IDatabaseContext>(provider => provider.GetService<DatabaseContext>());
+            services.AddScoped<ITournamentContext>(provider => provider.GetService<TournamentContext>());
             services.AddControllers();
             services.AddMvc().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>

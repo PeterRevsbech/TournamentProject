@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TournamentProj.Model;
-namespace TournamentProj.Context
 
+namespace TournamentProj.Context
 {
-    public class DatabaseContext : DbContext, IDatabaseContext
+    public interface ITournamentContext 
     {
-        
-        public DatabaseContext(DbContextOptions<DatabaseContext> options)
-            : base(options)
-        {
-        }
         public DbSet<Tournament> Tournaments { get; set; }
         
         public DbSet<Player> Players { get; set; }
@@ -17,6 +12,6 @@ namespace TournamentProj.Context
         public DbSet<Draw> Draws { get; set; }
         
         //public DbSet<Match> Matches { get; set; }
-        
+        int SaveChanges();
     }
 }

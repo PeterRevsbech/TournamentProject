@@ -14,11 +14,11 @@ namespace TournamentProj.Controllers
     [Route("api/Draw")]
     public class DrawController : ControllerBase
     {
-        private readonly IDatabaseContext _dbContext;
+        private readonly ITournamentContext _dbContext;
         private readonly ILogger<DrawController> _logger;
         private readonly IDrawMapper _mapper;
 
-        public DrawController(ILogger<DrawController> logger, IDatabaseContext dbContext)
+        public DrawController(ILogger<DrawController> logger, ITournamentContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;

@@ -18,10 +18,10 @@ namespace TournamentProj.Controllers
     {
 
         private readonly ILogger<TournamentController> _logger;
-        private readonly IDatabaseContext _dbContext;
+        private readonly ITournamentContext _dbContext;
         private ITournamentMapper _mapper;
 
-        public TournamentController(ILogger<TournamentController> logger, IDatabaseContext dbContext)
+        public TournamentController(ILogger<TournamentController> logger, ITournamentContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
