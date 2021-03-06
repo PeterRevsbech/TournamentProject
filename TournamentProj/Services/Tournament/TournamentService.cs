@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.DTO.Tournament;
 using TournamentProj.Model;
@@ -7,37 +9,39 @@ namespace TournamentProj.Services.tournament
 {
     public class TournamentService : ITournamentService
     {
-        private readonly IRepository<Tournament> tournamentRepository;
+        private readonly ITournamentRepository _tournamentRepository;
 
-        public TournamentService(IRepository<Tournament> tournamentRepository)
+        public TournamentService(ITournamentContext dbContext)
         {
-            this.tournamentRepository = tournamentRepository;
+            //TODO maybe not so good to use constructor here
+            _tournamentRepository = new TournamentRepository(dbContext);
         }
 
         
-        public Tournament Create(TournamentDTO tournamentDTO)
+        public Tournament Create(Tournament tournament)
         {
-            throw new System.NotImplementedException();
+            _tournamentRepository.Insert(tournament);
+            return tournament;
         }
 
         public Tournament Get(int id)
         {
-            throw new System.NotImplementedException();
+            return _tournamentRepository.FindById(id);
         }
 
-        public IEnumerable<TournamentDTO> GetAll()
+        public IEnumerable<Tournament> GetAll()
         {
-            throw new System.NotImplementedException();
+            return _tournamentRepository.FindAll();
         }
 
-        public IEnumerable<TournamentDTO> GetFromUserId(int userId)
+        public IEnumerable<Tournament> GetFromUserId(int userId)
         {
             throw new System.NotImplementedException();
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            _tournamentRepository.Delete(id);
         }
     }
 }

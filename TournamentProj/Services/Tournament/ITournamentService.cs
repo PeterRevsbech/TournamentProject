@@ -6,13 +6,13 @@ namespace TournamentProj.Services.tournament
 {
     public interface ITournamentService
     {
-        Tournament Create(TournamentDTO tournamentDTO);
+        Tournament Create(Tournament tournament);
 
         Tournament Get(int id);
 
-        IEnumerable<TournamentDTO> GetAll();
+        IEnumerable<Tournament> GetAll();
 
-        IEnumerable<TournamentDTO> GetFromUserId(int userId);
+        IEnumerable<Tournament> GetFromUserId(int userId);
 
         void Delete(int id);
     }

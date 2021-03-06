@@ -15,4 +15,10 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DAL\Draw" />
+      <Folder Include="DAL\Match" />
+      <Folder Include="DAL\Player" />
+    </ItemGroup>
+
 </Project>
