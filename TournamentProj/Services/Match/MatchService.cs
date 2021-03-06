@@ -5,7 +5,7 @@ using TournamentProj.Model;
 
 namespace TournamentProj.Services
 {
-    public class MatchService
+    public class MatchService : IMatchService
     {
         private readonly IMatchRepository _matchRepository;
         private readonly ITournamentContext _dbContext;

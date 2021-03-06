@@ -4,7 +4,7 @@ using TournamentProj.Model;
 
 namespace TournamentProj.Mappers
 {
-    public class MatchMapper
+    public class MatchMapper : IMatchMapper
     {
         public Match FromDTO(MatchDTO dto)
         {

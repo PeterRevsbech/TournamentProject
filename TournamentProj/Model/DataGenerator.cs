@@ -80,6 +80,29 @@ namespace TournamentProj.Model
                 }
             );
 
+            context.Players.AddRange(
+                new Player()
+                {
+                    DrawId = 6,
+                    
+                }
+                ,
+                new Player()
+                {
+                    
+                }
+                ,
+                new Player()
+                {
+                    
+                }
+                ,
+                new Player()
+                {
+                    
+                }
+            );
+
             
             
             context.SaveChanges();

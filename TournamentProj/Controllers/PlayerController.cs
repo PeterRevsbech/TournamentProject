@@ -11,6 +11,7 @@ using TournamentProj.DTO;
 using TournamentProj.DTO.Player;
 using TournamentProj.Mappers;
 using TournamentProj.Model;
+using TournamentProj.Services;
 
 namespace TournamentProj.Controllers
 {
@@ -19,20 +20,23 @@ namespace TournamentProj.Controllers
     public class PlayerController : ControllerBase
     {
         private readonly ILogger<PlayerController> _logger;
-        private readonly ITournamentContext _dbContext;
+        //private readonly ITournamentContext _dbContext;
         private readonly IPlayerMapper _mapper;
+        private readonly IPlayerService _playerService;
+
 
         public PlayerController(ILogger<PlayerController> logger, ITournamentContext dbContext)
         {
             _logger = logger;
-            _dbContext = dbContext;
+            //_dbContext = dbContext;
             _mapper = new PlayerMapper();
+            _playerService = new PlayerService(dbContext);
         }
 
         [HttpGet]
         public IEnumerable<PlayerDTO> Get()
         {
-            return _mapper.ToDtoArray(_dbContext.Players.ToArray());
+            return _mapper.ToDtoArray(_playerService.GetAll());
         }
         
         
@@ -41,7 +45,7 @@ namespace TournamentProj.Controllers
         [HttpGet]
         public IActionResult Get(int id)
         {
-            var result = _dbContext.Players.Find(id);
+            var result = _playerService.Get(id);
             return Ok(_mapper.ToDTO(result));
         }
         
@@ -49,10 +53,9 @@ namespace TournamentProj.Controllers
         public IActionResult Post(JObject payload)
         {
             var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
-            var result = _mapper.FromDTO(dto);
-            _dbContext.Players.Add(result);
-            _dbContext.SaveChanges();
-            
+            var input = _mapper.FromDTO(dto);
+
+            var result =_playerService.Create(input);
             return Ok(_mapper.ToDTO(result));
         }
         
@@ -61,11 +64,10 @@ namespace TournamentProj.Controllers
         public IActionResult Put(JObject payload)
         {
             var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
-            var result = _mapper.FromDTO(dto);
+            var input = _mapper.FromDTO(dto);
 
-            _dbContext.Players.Update(result);
-            _dbContext.SaveChanges();
-            return Ok(result);
+            var result = _playerService.Update(input);
+            return Ok(_mapper.ToDTO(result));
         }
         
         
@@ -73,10 +75,8 @@ namespace TournamentProj.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var result = _dbContext.Players.Find(id);
-            _dbContext.Players.Remove(result);
-            _dbContext.SaveChanges();
-            return Ok(result);
+            var result = _playerService.Delete(id);
+            return Ok(_mapper.ToDTO(result));
         }
         
         

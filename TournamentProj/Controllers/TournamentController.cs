@@ -67,7 +67,7 @@ namespace TournamentProj.Controllers
             var input = _mapper.FromDTO(tournamentDto);
 
             var result =_tournamentService.Update(input);
-            return Ok(result);
+            return Ok(_mapper.ToDTO(result));
         }
         
         [Route("{id:int}")]
@@ -75,7 +75,7 @@ namespace TournamentProj.Controllers
         public IActionResult Delete(int id)
         {
             var result = _tournamentService.Delete(id); 
-            return Ok(result);
+            return Ok(_mapper.ToDTO(result));
         }
         
         

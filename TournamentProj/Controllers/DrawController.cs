@@ -74,8 +74,8 @@ namespace TournamentProj.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var result = _drawService.Delete(id);
-            return Ok(result);
+            var result = _drawService.Delete(id);   
+            return Ok(_mapper.ToDTO(result));
         }
         
     }
