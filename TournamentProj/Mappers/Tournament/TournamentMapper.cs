@@ -8,19 +8,41 @@ namespace TournamentProj.Mappers
 {
     public class TournamentMapper : ITournamentMapper
     {
-        public Tournament FromDTO(TournamentDTO tournamentDto)
+        public Tournament FromDTO(TournamentDTO dto)
         {
-            Tournament tournament = new Tournament();
-            tournament.Id = tournamentDto.Id;
-            tournament.Name = tournamentDto.Name;
+            var tournament = new Tournament()
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                CreationDate = dto.CreationDate,
+                StartDate = dto.StartDate
+
+            };
             return tournament;
         }
     
         public TournamentDTO ToDTO(Tournament tournament)
         {
-            TournamentDTO dto = new TournamentDTO();
-            dto.Id = tournament.Id;
-            dto.Name = tournament.Name;
+            var dto = new TournamentDTO()
+            {
+                Id = tournament.Id,
+                Name = tournament.Name,
+                CreationDate = tournament.CreationDate,
+                StartDate = tournament.StartDate,
+                PlayerIds = new List<int>(),
+                DrawIds = new List<int>()
+            };
+            
+            foreach (var player in tournament.Players)
+            {
+                dto.PlayerIds.Add(player.Id);
+            }
+            
+            foreach (var draw in tournament.Draws)
+            {
+                dto.DrawIds.Add(draw.Id);
+            }
+            
             return dto;
         }
         

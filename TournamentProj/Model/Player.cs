@@ -8,8 +8,6 @@ namespace TournamentProj.Model
         [Key]
         public int Id { get; set; }
         
-        public ICollection<Draw> Draws { get; set; }
-        
         public Tournament Tournament { get; set; }
         
         public int TournamentId { get; set; }

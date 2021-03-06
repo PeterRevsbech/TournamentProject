@@ -1,17 +1,32 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TournamentProj.DTO.Draw
 {
+    public enum DrawType
+    {
+        KO, Monrad, RR
+    }
     public class DrawDTO
     {
         [Key]
         public int Id { get; set; }
+        
+        public int TournamentId { get; set; }
+        
+        public ICollection<int> MatchIds { get; set; }
         public string Name { get; set; }
         
-        public int games { get; set; }
-        public int sets { get; set; }
-        public int points { get; set; }
-        public bool useSets { get; set; }
-        public bool tieBreaks { get; set; }
+        public DrawType DrawType { get; set; }
+        
+        public int Sets { get; set; }
+        
+        public int Games { get; set; }
+        
+        public int Points { get; set; }
+        
+        public bool TieBreaks { get; set; }
+
+
     }
 }

@@ -11,8 +11,12 @@ namespace TournamentProj.Mappers
             var draw = new Draw()
             {
                 Name = dto.Name,
-                Id = dto.Id
-
+                Id = dto.Id,
+                TournamentId = dto.TournamentId,
+                Points = dto.Points,
+                Games = dto.Games,
+                Sets = dto.Sets,
+                TieBreaks = dto.TieBreaks
             };
 
             return draw;
@@ -22,9 +26,19 @@ namespace TournamentProj.Mappers
         {
             var dto = new DrawDTO()
             {
+                Name = draw.Name,
                 Id = draw.Id,
-                Name = draw.Name
+                TournamentId = draw.TournamentId,
+                Points = draw.Points,
+                Games = draw.Games,
+                Sets = draw.Sets,
+                TieBreaks = draw.TieBreaks,
+                MatchIds = new List<int>()
             };
+            foreach (var match in draw.Matches)
+            {
+                dto.MatchIds.Add(match.Id);
+            }
 
             return dto;
         }

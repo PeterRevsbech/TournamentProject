@@ -5,7 +5,7 @@ namespace TournamentProj.Model
 {
     public enum DrawType
     {
-        KnockOut, Monrad, RoundRobin
+        KO, MONRAD, RR
     }
     public class Draw
     {
@@ -15,7 +15,6 @@ namespace TournamentProj.Model
         public virtual Tournament Tournament { get; set; }
         
         public virtual ICollection<Match> Matches { get; set; }
-        public ICollection<Player> Players { get; set; }
         public string Name { get; set; }
         
         public DrawType DrawType { get; set; }

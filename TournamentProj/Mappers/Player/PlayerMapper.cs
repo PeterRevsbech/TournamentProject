@@ -11,8 +11,9 @@ namespace TournamentProj.Mappers
             var player = new Player()
             {
                 Name = dto.Name,
-                Id = dto.Id
-                
+                Id = dto.Id,
+                TournamentId = dto.TournamentId
+
             };
        
             return player;
@@ -23,7 +24,8 @@ namespace TournamentProj.Mappers
             var dto = new PlayerDTO()
             {
                 Id = player.Id,
-                Name = player.Name
+                Name = player.Name,
+                TournamentId = player.TournamentId == 0 ? player.Tournament.Id : player.TournamentId
             };
        
             return dto;

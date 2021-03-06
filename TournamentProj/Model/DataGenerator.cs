@@ -33,14 +33,14 @@ namespace TournamentProj.Model
                         {
                             Id = 10,
                             Name = "DU13 Finalerunde",
-                            DrawType = DrawType.Monrad,
+                            DrawType = DrawType.MONRAD,
                         }
                         ,
                         new Draw()
                         {
                             Id = 11,
                             Name = "DU13 Puljespl",
-                            DrawType = DrawType.RoundRobin
+                            DrawType = DrawType.RR
                         }
                     },
                     Players = new List<Player>()

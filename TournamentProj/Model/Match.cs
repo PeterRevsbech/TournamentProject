@@ -2,30 +2,40 @@
 
 namespace TournamentProj.Model
 {
+    public enum Status
+    {
+        CLOSED,
+        OPEN,
+        ACTIVE,
+        FINISHED
+    }
     public class Match
     {
         [Key]
-        public int matchId { get; set; }
+        public int Id { get; set; }
 
         public int DrawId { get; set; }
         
         public Draw Draw { get; set; }
         
         [Required]
-        public int p1Id { get; set; }
+        public int P1Id { get; set; }
         
         [Required]
-        public int p2Id { get; set; }
+        public int P2Id { get; set; }
         
-        public bool p1Won { get; set; }
+        public Status Status { get; set; }
         
-        public int p1Match { get; set; }
-        public int p1Games { get; set; }
-        public int p1Sets { get; set; }
-        public int p1Points { get; set; }
-        public int p2Match { get; set; }
-        public int p2Games { get; set; }
-        public int p2Sets { get; set; }
-        public int p2Points { get; set; }
+        public bool P1Won { get; set; }
+        
+        public int P1Match { get; set; }
+        public int P1Games { get; set; }
+        public int P1Sets { get; set; }
+        
+        public int P1Points { get; set; }
+        public int P2Match { get; set; }
+        public int P2Games { get; set; }
+        public int P2Sets { get; set; }
+        public int P2Points { get; set; }
     }
 }
