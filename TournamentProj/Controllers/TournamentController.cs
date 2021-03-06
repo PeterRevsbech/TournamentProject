@@ -19,14 +19,14 @@ namespace TournamentProj.Controllers
     {
 
         private readonly ILogger<TournamentController> _logger;
-        private readonly ITournamentContext _dbContext;
+        //private readonly ITournamentContext _dbContext;
         private ITournamentMapper _mapper;
         private ITournamentService _tournamentService;
 
         public TournamentController(ILogger<TournamentController> logger, ITournamentContext dbContext)
         {
             _logger = logger;
-            _dbContext = dbContext;
+            //_dbContext = dbContext;
             _mapper = new TournamentMapper();
             
             //TODO do this with dependency injection instead
@@ -44,7 +44,7 @@ namespace TournamentProj.Controllers
         [HttpGet]
         public IActionResult Get(int id)
         {
-            var result = _dbContext.Tournaments.Find(id);
+            var result = _tournamentService.Get(id);
             return Ok(_mapper.ToDTO(result));
         }
         
@@ -53,9 +53,9 @@ namespace TournamentProj.Controllers
         {
             var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
             var tournament = _mapper.FromDTO(tournamentDto);
-            _dbContext.Tournaments.Add(tournament);
-            _dbContext.SaveChanges();
-            
+
+            _tournamentService.Create(tournament);
+
             return Ok(_mapper.ToDTO(tournament));
         }
         
@@ -65,19 +65,16 @@ namespace TournamentProj.Controllers
             var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
             var tournament = _mapper.FromDTO(tournamentDto);
 
-            _dbContext.Tournaments.Update(tournament);
-            _dbContext.SaveChanges();
-            return Ok(tournament);
+            var result =_tournamentService.Update(tournament);
+            return Ok(result);
         }
         
         [Route("{id:int}")]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var result = _dbContext.Tournaments.Find(id);
-            _dbContext.Tournaments.Remove(result);
-            _dbContext.SaveChanges();
-            return Ok(_mapper.ToDTO(result));
+            var result = _tournamentService.Delete(id);
+            return Ok(result);
         }
         
         

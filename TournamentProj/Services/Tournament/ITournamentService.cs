@@ -14,6 +14,8 @@ namespace TournamentProj.Services.tournament
 
         IEnumerable<Tournament> GetFromUserId(int userId);
 
-        void Delete(int id);
+        Tournament Delete(int id);
+
+        Tournament Update(Tournament tournament);
     }
 }

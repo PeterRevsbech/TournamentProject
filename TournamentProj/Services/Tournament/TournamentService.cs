@@ -10,9 +10,11 @@ namespace TournamentProj.Services.tournament
     public class TournamentService : ITournamentService
     {
         private readonly ITournamentRepository _tournamentRepository;
+        private readonly ITournamentContext _dbContext;
 
         public TournamentService(ITournamentContext dbContext)
         {
+            _dbContext = dbContext;
             //TODO maybe not so good to use constructor here
             _tournamentRepository = new TournamentRepository(dbContext);
         }
@@ -21,6 +23,7 @@ namespace TournamentProj.Services.tournament
         public Tournament Create(Tournament tournament)
         {
             _tournamentRepository.Insert(tournament);
+            _dbContext.SaveChanges();
             return tournament;
         }
 
@@ -39,9 +42,19 @@ namespace TournamentProj.Services.tournament
             throw new System.NotImplementedException();
         }
 
-        public void Delete(int id)
+        public Tournament Delete(int id)
         {
-            _tournamentRepository.Delete(id);
+            var tournament = _tournamentRepository.FindById(id);
+            _tournamentRepository.Delete(tournament);
+            _dbContext.SaveChanges();
+            return tournament;
+        }
+
+        public Tournament Update(Tournament tournament)
+        {
+            _tournamentRepository.Update(tournament);
+            _dbContext.SaveChanges();
+            return tournament;
         }
     }
 }
