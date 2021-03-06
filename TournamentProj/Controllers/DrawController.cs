@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using TournamentProj.Context;
 using TournamentProj.DTO.Draw;
 using TournamentProj.DTO.Player;
+using TournamentProj.Mappers;
 using TournamentProj.Services;
 
 namespace TournamentProj.Controllers
@@ -15,7 +16,7 @@ namespace TournamentProj.Controllers
     [Route("api/Draw")]
     public class DrawController : ControllerBase
     {
-        private readonly ITournamentContext _dbContext;
+        //private readonly ITournamentContext _dbContext;
         private readonly ILogger<DrawController> _logger;
         private readonly IDrawMapper _mapper;
         private readonly IDrawService _drawService;
@@ -23,14 +24,18 @@ namespace TournamentProj.Controllers
         public DrawController(ILogger<DrawController> logger, ITournamentContext dbContext)
         {
             _logger = logger;
-            _dbContext = dbContext;
+            //_dbContext = dbContext;
             _mapper = new DrawMapper();
+                
+            //TODO do this with dependency injection instead
+            //dbContext is here from DI pattern. Use it to make nessecary service(s)
+            _drawService = new DrawService(dbContext);
         }
 
         [HttpGet]
-        public IEnumerable<DrawDTO> Get()
+        public IActionResult Get()
         {
-            return _mapper.ToDtoArray(_dbContext.Draws.ToArray());
+            return Ok(_mapper.ToDtoArray(_drawService.GetAll()));
         }
 
 
@@ -38,7 +43,7 @@ namespace TournamentProj.Controllers
         [HttpGet]
         public IActionResult Get(int id)
         {
-            var result = _dbContext.Draws.Find(id);
+            var result = _drawService.Get(id);
             return Ok(_mapper.ToDTO(result));
         }
 
@@ -47,10 +52,9 @@ namespace TournamentProj.Controllers
         public IActionResult Post(JObject payload)
         {
             var dto = JsonConvert.DeserializeObject<DrawDTO>(payload.ToString());
-            var result = _mapper.FromDTO(dto);
-            _dbContext.Draws.Add(result);
-            _dbContext.SaveChanges();
+            var input = _mapper.FromDTO(dto);
 
+            var result =_drawService.Create(input);
             return Ok(_mapper.ToDTO(result));
         }
 
@@ -59,10 +63,9 @@ namespace TournamentProj.Controllers
         public IActionResult Put(JObject payload)
         {
             var dto = JsonConvert.DeserializeObject<DrawDTO>(payload.ToString());
-            var result = _mapper.FromDTO(dto);
+            var input = _mapper.FromDTO(dto);
 
-            _dbContext.Draws.Update(result);
-            _dbContext.SaveChanges();
+            var result = _drawService.Update(input);
             return Ok(result);
         }
 
@@ -71,9 +74,7 @@ namespace TournamentProj.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var result = _dbContext.Draws.Find(id);
-            _dbContext.Draws.Remove(result);
-            _dbContext.SaveChanges();
+            var result = _drawService.Delete(id);
             return Ok(result);
         }
         

@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using TournamentProj.Context;
 using TournamentProj.DTO;
 using TournamentProj.DTO.Player;
+using TournamentProj.Mappers;
 using TournamentProj.Model;
 
 namespace TournamentProj.Controllers

@@ -2,38 +2,39 @@
 using TournamentProj.DTO.Player;
 using TournamentProj.Model;
 
-public class PlayerMapper : IPlayerMapper
+namespace TournamentProj.Mappers
 {
-    public Player FromDTO(PlayerDTO dto)
+    public class PlayerMapper : IPlayerMapper
     {
-        var player = new Player()
+        public Player FromDTO(PlayerDTO dto)
         {
-            Name = dto.Name,
-            Id = dto.Id
+            var player = new Player()
+            {
+                Name = dto.Name,
+                Id = dto.Id
                 
-        };
+            };
        
-        return player;
-    }
+            return player;
+        }
     
-    public PlayerDTO ToDTO(Player player)
-    {
-        var dto = new PlayerDTO()
+        public PlayerDTO ToDTO(Player player)
         {
-            Id = player.Id,
-            Name = player.Name
-        };
+            var dto = new PlayerDTO()
+            {
+                Id = player.Id,
+                Name = player.Name
+            };
        
-        return dto;
-    }
+            return dto;
+        }
 
-    public IEnumerable<PlayerDTO> ToDtoArray(IEnumerable<Player> list)
-    {
-        foreach (var item in list)
+        public IEnumerable<PlayerDTO> ToDtoArray(IEnumerable<Player> list)
         {
-            yield return ToDTO(item);
+            foreach (var item in list)
+            {
+                yield return ToDTO(item);
+            }
         }
     }
-        
-        
 }

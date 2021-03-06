@@ -4,30 +4,33 @@ using TournamentProj.DTO.Player;
 using TournamentProj.DTO.Tournament;
 using TournamentProj.Model;
 
-public class TournamentMapper : ITournamentMapper
+namespace TournamentProj.Mappers
 {
-    public Tournament FromDTO(TournamentDTO tournamentDto)
+    public class TournamentMapper : ITournamentMapper
     {
-        Tournament tournament = new Tournament();
-        tournament.Id = tournamentDto.Id;
-        tournament.Name = tournamentDto.Name;
-        return tournament;
-    }
-    
-    public TournamentDTO ToDTO(Tournament tournament)
-    {
-        TournamentDTO dto = new TournamentDTO();
-        dto.Id = tournament.Id;
-        dto.Name = tournament.Name;
-        return dto;
-    }
-        
-        
-    public IEnumerable<TournamentDTO> ToDtoArray(IEnumerable<Tournament> list)
-    {
-        foreach (var item in list)
+        public Tournament FromDTO(TournamentDTO tournamentDto)
         {
-            yield return ToDTO(item);
+            Tournament tournament = new Tournament();
+            tournament.Id = tournamentDto.Id;
+            tournament.Name = tournamentDto.Name;
+            return tournament;
+        }
+    
+        public TournamentDTO ToDTO(Tournament tournament)
+        {
+            TournamentDTO dto = new TournamentDTO();
+            dto.Id = tournament.Id;
+            dto.Name = tournament.Name;
+            return dto;
+        }
+        
+        
+        public IEnumerable<TournamentDTO> ToDtoArray(IEnumerable<Tournament> list)
+        {
+            foreach (var item in list)
+            {
+                yield return ToDTO(item);
+            }
         }
     }
 }

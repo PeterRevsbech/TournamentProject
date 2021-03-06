@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using TournamentProj.DTO.Draw;
 using TournamentProj.Model;
-
-
-public interface IDrawMapper
+namespace TournamentProj.Mappers
 {
-    public Draw FromDTO(DrawDTO dto);
-    public DrawDTO ToDTO(Draw draw);
+    public interface IDrawMapper
+    {
+        public Draw FromDTO(DrawDTO dto);
+        public DrawDTO ToDTO(Draw draw);
 
-    public IEnumerable<DrawDTO> ToDtoArray(IEnumerable<Draw> draws);
+        public IEnumerable<DrawDTO> ToDtoArray(IEnumerable<Draw> draws);
+    }
 }
+

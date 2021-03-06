@@ -2,36 +2,39 @@
 using TournamentProj.DTO.Draw;
 using TournamentProj.Model;
 
-public class DrawMapper : IDrawMapper
+namespace TournamentProj.Mappers
 {
-    public Draw FromDTO(DrawDTO dto)
+    public class DrawMapper : IDrawMapper
     {
-        var draw = new Draw()
+        public Draw FromDTO(DrawDTO dto)
         {
-            Name = dto.Name,
-            Id = dto.Id
-                
-        };
-       
-        return draw;
-    }
-    
-    public DrawDTO ToDTO(Draw draw)
-    {
-        var dto = new DrawDTO()
-        {
-            Id = draw.Id,
-            Name = draw.Name
-        };
-       
-        return dto;
-    }
+            var draw = new Draw()
+            {
+                Name = dto.Name,
+                Id = dto.Id
 
-    public IEnumerable<DrawDTO> ToDtoArray(IEnumerable<Draw> list)
-    {
-        foreach (var item in list)
+            };
+
+            return draw;
+        }
+
+        public DrawDTO ToDTO(Draw draw)
         {
-            yield return ToDTO(item);
+            var dto = new DrawDTO()
+            {
+                Id = draw.Id,
+                Name = draw.Name
+            };
+
+            return dto;
+        }
+
+        public IEnumerable<DrawDTO> ToDtoArray(IEnumerable<Draw> list)
+        {
+            foreach (var item in list)
+            {
+                yield return ToDTO(item);
+            }
         }
     }
 }

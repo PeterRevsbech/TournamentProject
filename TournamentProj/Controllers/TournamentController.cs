@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TournamentProj.Context;
 using TournamentProj.DTO.Tournament;
+using TournamentProj.Mappers;
 using TournamentProj.Model;
 using TournamentProj.Services.tournament;
 
@@ -35,9 +36,9 @@ namespace TournamentProj.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<TournamentDTO> Get()
+        public IActionResult Get()
         {
-            return _mapper.ToDtoArray(_tournamentService.GetAll());
+            return Ok(_mapper.ToDtoArray(_tournamentService.GetAll()));
         }
         
         [Route("{id:int}")]
@@ -52,20 +53,20 @@ namespace TournamentProj.Controllers
         public IActionResult Post(JObject payload)
         {
             var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
-            var tournament = _mapper.FromDTO(tournamentDto);
+            var input = _mapper.FromDTO(tournamentDto);
 
-            _tournamentService.Create(tournament);
+            var result = _tournamentService.Create(input);
 
-            return Ok(_mapper.ToDTO(tournament));
+            return Ok(_mapper.ToDTO(result));
         }
         
         [HttpPut]
         public IActionResult Put(JObject payload)
         {
             var tournamentDto = JsonConvert.DeserializeObject<TournamentDTO>(payload.ToString());
-            var tournament = _mapper.FromDTO(tournamentDto);
+            var input = _mapper.FromDTO(tournamentDto);
 
-            var result =_tournamentService.Update(tournament);
+            var result =_tournamentService.Update(input);
             return Ok(result);
         }
         

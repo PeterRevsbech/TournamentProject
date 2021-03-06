@@ -2,10 +2,13 @@
 using TournamentProj.DTO.Player;
 using TournamentProj.Model;
 
-public interface IPlayerMapper
+namespace TournamentProj.Mappers
 {
-    public Player FromDTO(PlayerDTO dto);
-    public PlayerDTO ToDTO(Player player);
+    public interface IPlayerMapper
+    {
+        public Player FromDTO(PlayerDTO dto);
+        public PlayerDTO ToDTO(Player player);
 
-    public IEnumerable<PlayerDTO> ToDtoArray(IEnumerable<Player> players);
+        public IEnumerable<PlayerDTO> ToDtoArray(IEnumerable<Player> players);
+    }
 }

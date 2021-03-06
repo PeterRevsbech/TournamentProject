@@ -5,7 +5,7 @@ using TournamentProj.Model;
 
 namespace TournamentProj.Services
 {
-    public class DrawService
+    public class DrawService : IDrawService
     {
         private readonly IDrawRepository _drawRepository;
         private readonly ITournamentContext _dbContext;

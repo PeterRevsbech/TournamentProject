@@ -11,8 +11,6 @@ namespace TournamentProj.Services
 
         IEnumerable<Draw> GetAll();
 
-        IEnumerable<Draw> GetFromUserId(int userId);
-
         Draw Delete(int id);
 
         Draw Update(Draw draw);
