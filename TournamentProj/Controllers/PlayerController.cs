@@ -19,7 +19,7 @@ namespace TournamentProj.Controllers
     {
         private readonly ILogger<PlayerController> _logger;
         private readonly ITournamentContext _dbContext;
-        private IPlayerMapper _mapper;
+        private readonly IPlayerMapper _mapper;
 
         public PlayerController(ILogger<PlayerController> logger, ITournamentContext dbContext)
         {

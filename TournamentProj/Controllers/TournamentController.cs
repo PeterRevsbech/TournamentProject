@@ -20,8 +20,8 @@ namespace TournamentProj.Controllers
 
         private readonly ILogger<TournamentController> _logger;
         //private readonly ITournamentContext _dbContext;
-        private ITournamentMapper _mapper;
-        private ITournamentService _tournamentService;
+        private readonly ITournamentMapper _mapper;
+        private readonly ITournamentService _tournamentService;
 
         public TournamentController(ILogger<TournamentController> logger, ITournamentContext dbContext)
         {
@@ -73,7 +73,7 @@ namespace TournamentProj.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var result = _tournamentService.Delete(id);
+            var result = _tournamentService.Delete(id); 
             return Ok(result);
         }
         

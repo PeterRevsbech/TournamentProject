@@ -17,6 +17,7 @@ namespace TournamentProj.Controllers
         private readonly ITournamentContext _dbContext;
         private readonly ILogger<DrawController> _logger;
         private readonly IDrawMapper _mapper;
+        private readonly IDrawService _drawService;
 
         public DrawController(ILogger<DrawController> logger, ITournamentContext dbContext)
         {

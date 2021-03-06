@@ -3,9 +3,6 @@
     public class MatchDTO
     {
         public bool p1Won { get; set; }
-        
-        
-        
         public int p1Match { get; set; }
         public int p1Games { get; set; }
         public int p1Sets { get; set; }
