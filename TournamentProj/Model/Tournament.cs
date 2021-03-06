@@ -10,7 +10,12 @@ namespace TournamentProj.Model
         public string Name {get;set;}
         
         public DateTime CreationDate { get; set; }
+        
+        public DateTime StartDate { get; set; }
 
         public virtual ICollection<Draw> Draws { get; set; }
+        
+        public virtual ICollection<Player> Players { get; set; }
+        
     }
 }
