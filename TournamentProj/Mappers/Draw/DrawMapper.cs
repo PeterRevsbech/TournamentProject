@@ -35,9 +35,12 @@ namespace TournamentProj.Mappers
                 TieBreaks = draw.TieBreaks,
                 MatchIds = new List<int>()
             };
-            foreach (var match in draw.Matches)
+            if (draw.Matches != null && draw.Matches.Count > 0)
             {
-                dto.MatchIds.Add(match.Id);
+                foreach (var match in draw.Matches)
+                {
+                    dto.MatchIds.Add(match.Id);
+                }
             }
 
             return dto;

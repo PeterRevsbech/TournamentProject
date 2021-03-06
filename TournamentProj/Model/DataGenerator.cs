@@ -29,18 +29,22 @@ namespace TournamentProj.Model
                     StartDate = DateTime.Today,
                     Draws = new List<Draw>()
                     {
-                        new Draw()
+                        new ()
                         {
                             Id = 10,
+                            TournamentId = 1,
                             Name = "DU13 Finalerunde",
                             DrawType = DrawType.MONRAD,
+                            Matches = new List<Match>()
                         }
                         ,
-                        new Draw()
+                        new ()
                         {
                             Id = 11,
+                            TournamentId = 1,
                             Name = "DU13 Puljespl",
-                            DrawType = DrawType.RR
+                            DrawType = DrawType.RR,
+                            Matches = new List<Match>()
                         }
                     },
                     Players = new List<Player>()
@@ -81,42 +85,48 @@ namespace TournamentProj.Model
                 {
                     Id = 1,
                     Name = "DU17 Hovedturnering",
-                    TournamentId = 1
+                    TournamentId = 1,
+                    Matches = new List<Match>()
                 },
                 new Draw()
                 {
                     Id = 2,
                     Name = "DU15 Hovedturnering",
-                    TournamentId = 1
+                    TournamentId = 1,
+                    Matches = new List<Match>()
+
                 }
                 ,
                 new Draw()
                 {
                     Id = 3,
                     Name = "DU13 Hovedturnering",
-                    TournamentId = 1
+                    TournamentId = 1,
+                    Matches = new List<Match>()
                 }
                 ,
                 new Draw()
                 {
                     Id = 4,
                     Name = "PU17 Puljespil",
-                    TournamentId = 2
+                    TournamentId = 2,
+                    Matches = new List<Match>()
                 }
                 ,
                 new Draw()
                 {
                     Id = 5,
                     Name = "PU17 Hovedturnering",
-                    TournamentId = 2
+                    TournamentId = 2,
+                    Matches = new List<Match>()
                 }
                 ,
                 new Draw()
                 {
                     Id = 6,
                     Name = "Torsdag aften på Bobbys",
-                    TournamentId = 3
-                    
+                    TournamentId = 3,
+                    Matches = new List<Match>()
                 }
             );
 /*

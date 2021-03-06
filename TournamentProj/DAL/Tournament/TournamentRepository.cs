@@ -22,6 +22,7 @@ namespace TournamentProj.DAL
         
         public IEnumerable<Tournament> FindAll()
         {
+            var x =_dbSet.ToArray();
             return _dbSet.ToArray();
         }
 

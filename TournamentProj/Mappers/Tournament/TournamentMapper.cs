@@ -32,17 +32,22 @@ namespace TournamentProj.Mappers
                 PlayerIds = new List<int>(),
                 DrawIds = new List<int>()
             };
-            
-            foreach (var player in tournament.Players)
+
+            if (tournament.Players != null && tournament.Players.Count > 0)
             {
-                dto.PlayerIds.Add(player.Id);
+                foreach (var player in tournament.Players)
+                {
+                    dto.PlayerIds.Add(player.Id);
+                }
             }
-            
-            foreach (var draw in tournament.Draws)
+
+            if (tournament.Draws != null && tournament.Draws.Count > 0)
             {
-                dto.DrawIds.Add(draw.Id);
+                foreach (var draw in tournament.Draws)
+                {
+                    dto.DrawIds.Add(draw.Id);
+                }
             }
-            
             return dto;
         }
         
