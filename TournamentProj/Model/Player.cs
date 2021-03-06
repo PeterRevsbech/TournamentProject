@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TournamentProj.Model
 {
@@ -6,11 +7,15 @@ namespace TournamentProj.Model
     {
         [Key]
         public int Id { get; set; }
+        
+        public ICollection<Draw> Draws { get; set; }
+        
+        public Tournament Tournament { get; set; }
+        
+        public int TournamentId { get; set; }
+        
         [Required]
         public string Name { get; set; }
         
-        public int DrawId { get; set; }
-        
-        public virtual Draw Draw { get; set; }
     }
 }

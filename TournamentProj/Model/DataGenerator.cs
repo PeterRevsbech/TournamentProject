@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,17 +24,56 @@ namespace TournamentProj.Model
                 new Tournament
                 {
                     Id = 1,
-                    Name = "Squash Grand Prix 1"
+                    Name = "Squash Grand Prix 1",
+                    CreationDate = DateTime.Now,
+                    StartDate = DateTime.Today,
+                    Draws = new List<Draw>()
+                    {
+                        new Draw()
+                        {
+                            Id = 10,
+                            Name = "DU13 Finalerunde",
+                            DrawType = DrawType.Monrad,
+                        }
+                        ,
+                        new Draw()
+                        {
+                            Id = 11,
+                            Name = "DU13 Puljespl",
+                            DrawType = DrawType.RoundRobin
+                        }
+                    },
+                    Players = new List<Player>()
+                    {
+                        new Player()
+                        {
+                            Name = "Peter Revsbech",
+                        }
+                        ,
+                        new Player()
+                        {
+                            Name = "Simon Steenholdt",
+                        }
+                        ,
+                        new Player()
+                        {
+                            Name = "Sebastian Brinker",
+                        }
+                    }
                 },
                 new Tournament
                 {
                     Id = 2,
-                    Name = "Squash Grand Prix 2"
+                    Name = "Squash Grand Prix 2",
+                    CreationDate = DateTime.Now,
+                    StartDate = DateTime.Today
                 },  
                 new Tournament
                 {
                     Id = 3,
-                    Name = "Pool med vennerne"
+                    Name = "Pool med vennerne",
+                    CreationDate = DateTime.Now,
+                    StartDate = DateTime.Today
                 });
             
             context.Draws.AddRange(
@@ -79,11 +119,10 @@ namespace TournamentProj.Model
                     
                 }
             );
-
+/*
             context.Players.AddRange(
                 new Player()
                 {
-                    DrawId = 6,
                     
                 }
                 ,
@@ -102,7 +141,7 @@ namespace TournamentProj.Model
                     
                 }
             );
-
+*/
             
             
             context.SaveChanges();

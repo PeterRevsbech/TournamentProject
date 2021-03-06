@@ -7,6 +7,10 @@ namespace TournamentProj.Model
         [Key]
         public int matchId { get; set; }
 
+        public int DrawId { get; set; }
+        
+        public Draw Draw { get; set; }
+        
         [Required]
         public int p1Id { get; set; }
         
