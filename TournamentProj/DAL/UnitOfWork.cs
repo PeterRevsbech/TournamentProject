@@ -1,5 +1,5 @@
 ﻿using System;
-using TournamentProj.Context;;
+using TournamentProj.Context;
 using TournamentProj.Model;
 
 namespace TournamentProj.DAL

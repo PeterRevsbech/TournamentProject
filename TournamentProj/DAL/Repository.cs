@@ -12,7 +12,7 @@ using TournamentProj.Context;
 
 namespace TournamentProj.DAL
 {
-    public class Repository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal readonly TournamentContext context;
         internal readonly DbSet<TEntity> dbSet;
@@ -23,7 +23,7 @@ namespace TournamentProj.DAL
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
+        public IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null, //Filter function
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, //Order by function
             string includeProperties = "")
@@ -54,23 +54,23 @@ namespace TournamentProj.DAL
             }
         }
 
-        public virtual TEntity GetById(object id)
+        public TEntity GetById(object id)
         {
             return dbSet.Find(id);
         }
 
-        public virtual void Insert(TEntity entity)
+        public void Insert(TEntity entity)
         {
             dbSet.Add(entity);
         }
 
-        public virtual void Delete(object id)
+        public void Delete(object id)
         {
             var entityToDelete = dbSet.Find(id);
             Delete(entityToDelete);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        public void Delete(TEntity entityToDelete)
         {
             if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
@@ -79,11 +79,13 @@ namespace TournamentProj.DAL
             dbSet.Remove(entityToDelete);
         }
 
-        public virtual void Update(TEntity entityToUpdate)
+        public void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
         }
+        
+        
     }
 
 }

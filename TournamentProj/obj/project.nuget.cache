@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9kxQ/k/07JuRd44a/zbERA442AzIsKP9U/MhWUToVoxIv5GO6P33pBia6caXNDQTeSd8/6pbWugg8hyeLff2qA==",
+  "dgSpecHash": "s8Wpu72nR/Fwt2Jto+lIqe3EsdEC5Iei5uYyzR9pvaSFt3b+F76AAZ0Na+05LMfiEGcp8kN91QsHSMzTc4zOqQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\peter\\RiderProjects\\TournamentProj\\TournamentProj\\TournamentProj.csproj",
+  "projectFilePath": "C:\\Users\\peter\\RiderProjects\\TournamentProjectNew\\TournamentProj\\TournamentProj.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\peter\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\peter\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.1\\microsoft.aspnetcore.jsonpatch.5.0.1.nupkg.sha512",
