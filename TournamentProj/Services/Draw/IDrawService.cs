@@ -15,6 +15,6 @@ namespace TournamentProj.Services
 
         Draw Delete(int id);
 
-        Draw Update(Draw tournament);
+        Draw Update(Draw draw);
     }
 }

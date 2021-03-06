@@ -1,7 +1,10 @@
-﻿namespace TournamentProj.DTO.Draw
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TournamentProj.DTO.Draw
 {
     public class DrawDTO
     {
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         

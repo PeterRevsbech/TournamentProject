@@ -17,43 +17,38 @@ namespace TournamentProj.Services
             _drawRepository = new DrawRepository(dbContext);
         }
 
-        /*
-        public Tournament Create(Tournament tournament)
+        
+        public Draw Create(Draw draw)
         {
-            _tournamentRepository.Insert(tournament);
+            _drawRepository.Insert(draw);
             _dbContext.SaveChanges();
-            return tournament;
+            return draw;
         }
 
-        public Tournament Get(int id)
+        public Draw Get(int id)
         {
-            return _tournamentRepository.FindById(id);
+            return _drawRepository.FindById(id);
         }
 
-        public IEnumerable<Tournament> GetAll()
+        public IEnumerable<Draw> GetAll()
         {
-            return _tournamentRepository.FindAll();
+            return _drawRepository.FindAll();
         }
 
-        public IEnumerable<Tournament> GetFromUserId(int userId)
+        public Draw Delete(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Tournament Delete(int id)
-        {
-            var tournament = _tournamentRepository.FindById(id);
-            _tournamentRepository.Delete(tournament);
+            var draw = _drawRepository.FindById(id);
+            _drawRepository.Delete(draw);
             _dbContext.SaveChanges();
-            return tournament;
+            return draw;
         }
 
-        public Tournament Update(Tournament tournament)
+        public Draw Update(Draw draw)
         {
-            _tournamentRepository.Update(tournament);
+            _drawRepository.Update(draw);
             _dbContext.SaveChanges();
-            return tournament;
+            return draw;
         }
-        */
+        
     }
 }

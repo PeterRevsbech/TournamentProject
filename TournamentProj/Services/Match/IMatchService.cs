@@ -1,7 +1,18 @@
-﻿namespace TournamentProj.Services
+﻿using System.Collections.Generic;
+using TournamentProj.Model;
+
+namespace TournamentProj.Services
 {
-    public class IMatchService
+    public interface IMatchService
     {
+        Match Create(Match match);
+
+        Match Get(int id);
+
+        IEnumerable<Match> GetAll();
         
+        Match Delete(int id);
+
+        Match Update(Match match);
     }
 }

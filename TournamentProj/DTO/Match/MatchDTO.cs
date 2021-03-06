@@ -2,6 +2,9 @@
 {
     public class MatchDTO
     {
+        public int matchId { get; set; }
+        public int p1Id { get; set; }
+        public int p2Id { get; set; }
         public bool p1Won { get; set; }
         public int p1Match { get; set; }
         public int p1Games { get; set; }
