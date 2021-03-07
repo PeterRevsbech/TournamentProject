@@ -47,6 +47,15 @@ namespace TournamentProj.Controllers
             return Ok(_mapper.ToDTO(result));
         }
         
+        [Route("Draw/{drawId:int}")]
+        [HttpGet]
+        public IEnumerable<PlayerDTO> GetFromDrawId(int drawId)
+        {
+            var result = _playerService.GetFromDrawId(drawId);
+            return _mapper.ToDtoArray(result);
+        }
+        
+        
         [HttpPost]
         public IActionResult Post(PlayerDTO dto)
         {

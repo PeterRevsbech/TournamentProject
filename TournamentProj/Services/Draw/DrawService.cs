@@ -10,11 +10,10 @@ namespace TournamentProj.Services
         private readonly IDrawRepository _drawRepository;
         private readonly ITournamentContext _dbContext;
 
-        public DrawService(ITournamentContext dbContext)
+        public DrawService(ITournamentContext dbContext, IDrawRepository drawRepository)
         {
             _dbContext = dbContext;
-            //TODO maybe not so good to use constructor here
-            _drawRepository = new DrawRepository(dbContext);
+            _drawRepository = drawRepository;
         }
 
         

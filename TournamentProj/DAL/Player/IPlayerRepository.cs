@@ -8,6 +8,7 @@ namespace TournamentProj.DAL
         public IEnumerable<Player> FindAll();
 
         public Player FindById(int id);
+
         public void Insert(Player player);
         
         public void Delete(int id);

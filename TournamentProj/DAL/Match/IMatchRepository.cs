@@ -9,6 +9,8 @@ namespace TournamentProj.DAL
 
         public Match FindById(int id);
         public IEnumerable<Match> FindByPlayerId(int playerId);
+
+        public IEnumerable<Match> FindByDrawId(int drawId);
         public void Insert(Match match);
         
         public void Delete(int id);

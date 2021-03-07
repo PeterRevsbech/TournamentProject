@@ -9,6 +9,8 @@ namespace TournamentProj.Services
 
         Player Get(int id);
 
+        IEnumerable<Player> GetFromDrawId(int drawId);
+
         IEnumerable<Player> GetAll();
         
         Player Delete(int id);

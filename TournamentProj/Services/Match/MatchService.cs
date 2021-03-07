@@ -10,11 +10,10 @@ namespace TournamentProj.Services
         private readonly IMatchRepository _matchRepository;
         private readonly ITournamentContext _dbContext;
 
-        public MatchService(ITournamentContext dbContext)
+        public MatchService(ITournamentContext dbContext, IMatchRepository matchRepository)
         {
             _dbContext = dbContext;
-            //TODO maybe not so good to use constructor here
-            _matchRepository = new MatchRepository(dbContext);
+            _matchRepository = matchRepository;
         }
 
         
