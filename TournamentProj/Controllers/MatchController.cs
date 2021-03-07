@@ -42,6 +42,14 @@ namespace TournamentProj.Controllers
             return Ok(_mapper.ToDTO(result));
         }
         
+        [Route("Player/{playerId:int}")]
+        [HttpGet]
+        public IActionResult GetByPlayerId(int playerId)
+        {
+            var result = _matchService.GetByPlayerId(playerId);
+            return Ok(_mapper.ToDtoArray(result));
+        }
+        
         [HttpPost]
         public IActionResult Post(MatchDTO dto)
         {

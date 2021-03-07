@@ -9,6 +9,8 @@ namespace TournamentProj.Services
 
         Match Get(int id);
 
+        IEnumerable<Match> GetByPlayerId(int playerId);
+
         IEnumerable<Match> GetAll();
         
         Match Delete(int id);

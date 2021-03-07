@@ -30,6 +30,11 @@ namespace TournamentProj.Services
             return _matchRepository.FindById(id);
         }
 
+        public IEnumerable<Match> GetByPlayerId (int playerId)
+        {
+            return _matchRepository.FindByPlayerId(playerId);
+        }
+        
         public IEnumerable<Match> GetAll()
         {
             return _matchRepository.FindAll();

@@ -24,6 +24,11 @@ namespace TournamentProj.DAL
             return _dbSet.Find(id);
         }
 
+        public IEnumerable<Match> FindByPlayerId(int playerId)
+        {
+            return _dbSet.Where(match => match.P1Id == playerId || match.P2Id == playerId).ToArray();
+        }
+
         public void Insert(Match match)
         {
             _dbSet.Add(match);

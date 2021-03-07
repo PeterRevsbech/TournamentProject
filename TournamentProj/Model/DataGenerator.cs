@@ -39,6 +39,7 @@ namespace TournamentProj.Model
                             {
                                 new Match()
                                 {
+                                    Id = 50,
                                     P1Id = 15,
                                     P2Id = 16,
                                     Status = Status.CLOSED
@@ -46,6 +47,7 @@ namespace TournamentProj.Model
                                 ,
                                 new Match()
                                 {
+                                    Id = 51,
                                     P1Id = 15,
                                     P2Id = 17,
                                     Status = Status.CLOSED
@@ -53,6 +55,7 @@ namespace TournamentProj.Model
                                 ,
                                 new Match()
                                 {
+                                    Id = 52,
                                     P1Id = 16,
                                     P2Id = 17,
                                     Status = Status.CLOSED
