@@ -34,7 +34,8 @@ namespace TournamentProj.Services.tournament
 
         public IEnumerable<Tournament> GetAll()
         {
-            return _tournamentRepository.FindAll();
+            var result = _tournamentRepository.FindAll();
+            return result;
         }
 
         public IEnumerable<Tournament> GetFromUserId(int userId)

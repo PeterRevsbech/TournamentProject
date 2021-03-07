@@ -20,19 +20,14 @@ namespace TournamentProj.Controllers
     {
 
         private readonly ILogger<TournamentController> _logger;
-        //private readonly ITournamentContext _dbContext;
         private readonly ITournamentMapper _mapper;
         private readonly ITournamentService _tournamentService;
 
-        public TournamentController(ILogger<TournamentController> logger, ITournamentContext dbContext)
+        public TournamentController(ILogger<TournamentController> logger,ITournamentMapper tournamentMapper, ITournamentService tournamentService)
         {
             _logger = logger;
-            //_dbContext = dbContext;
-            _mapper = new TournamentMapper();
-            
-            //TODO do this with dependency injection instead
-            //dbContext is here from DI pattern. Use it to make nessecary service(s)
-            _tournamentService = new TournamentService(dbContext);
+            _mapper = tournamentMapper;
+            _tournamentService = tournamentService;
         }
 
         [HttpGet]

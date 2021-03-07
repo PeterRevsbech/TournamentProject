@@ -14,7 +14,7 @@ namespace TournamentProj.Model
         
         public Tournament Tournament { get; set; }
         
-        public ICollection<Match> Matches { get; set; }
+        public List<Match> Matches { get; set; }
         public string Name { get; set; }
         
         public DrawType DrawType { get; set; }

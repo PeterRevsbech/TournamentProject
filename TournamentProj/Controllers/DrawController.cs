@@ -16,20 +16,15 @@ namespace TournamentProj.Controllers
     [Route("api/Draw")]
     public class DrawController : ControllerBase
     {
-        //private readonly ITournamentContext _dbContext;
         private readonly ILogger<DrawController> _logger;
         private readonly IDrawMapper _mapper;
         private readonly IDrawService _drawService;
 
-        public DrawController(ILogger<DrawController> logger, ITournamentContext dbContext)
+        public DrawController(ILogger<DrawController> logger, IDrawService drawService, IDrawMapper drawMapper)
         {
             _logger = logger;
-            //_dbContext = dbContext;
-            _mapper = new DrawMapper();
-                
-            //TODO do this with dependency injection instead
-            //dbContext is here from DI pattern. Use it to make nessecary service(s)
-            _drawService = new DrawService(dbContext);
+            _mapper = drawMapper;
+            _drawService = drawService;
         }
 
         [HttpGet]
@@ -49,9 +44,8 @@ namespace TournamentProj.Controllers
 
         
         [HttpPost]
-        public IActionResult Post(JObject payload)
+        public IActionResult Post(DrawDTO dto)
         {
-            var dto = JsonConvert.DeserializeObject<DrawDTO>(payload.ToString());
             var input = _mapper.FromDTO(dto);
 
             var result =_drawService.Create(input);

@@ -22,15 +22,27 @@ namespace TournamentProj.DAL
         
         public IEnumerable<Tournament> FindAll()
         {
-            var x =_dbSet.ToArray();
-            return _dbSet.ToArray();
+            //Include laver et join kald i databasen ==> join tournament med draws
+            var x =_dbSet
+                .Include(x => x.Draws)
+                .ThenInclude(draw => draw.Matches)
+                .Include(tournament => tournament.Players)
+                .ToArray();
+            return x;
         }
 
         public Tournament FindById(int id)
         {
-            return _dbSet.Find(id);
+            //Det her er LINQ queries
+            var result= _dbSet.Where(tournament => id == tournament.Id)
+                .Include(tournament => tournament.Draws)
+                .ThenInclude(draw => draw.Matches)
+                .Include(tournament => tournament.Players)
+                .FirstOrDefault();
+            
+            return result;
         }
-
+    
         public void Insert(Tournament entity)
         {
             _dbSet.Add(entity);

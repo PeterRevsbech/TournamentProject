@@ -17,17 +17,14 @@ namespace TournamentProj.Controllers
     public class MatchController : ControllerBase
     {
         private readonly ILogger<MatchController> _logger;
-        //private readonly ITournamentContext _dbContext;
         private readonly IMatchMapper _mapper;
         private readonly IMatchService _matchService;
 
-
-        public MatchController(ILogger<MatchController> logger, ITournamentContext dbContext)
+        public MatchController(ILogger<MatchController> logger, IMatchMapper matchMapper, IMatchService matchService)
         {
             _logger = logger;
-            //_dbContext = dbContext;
-            _mapper = new MatchMapper();
-            _matchService = new MatchService(dbContext);
+            _mapper = matchMapper;
+            _matchService = matchService;
         }
 
         [HttpGet]

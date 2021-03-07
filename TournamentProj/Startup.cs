@@ -14,6 +14,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using TournamentProj.Context;
+using TournamentProj.DAL;
+using TournamentProj.Mappers;
+using TournamentProj.Services;
+using TournamentProj.Services.tournament;
 
 namespace TournamentProj
 {
@@ -31,8 +35,30 @@ namespace TournamentProj
         {
             services.AddDbContext<TournamentContext>(opt =>
                 opt.UseInMemoryDatabase("Tournament"));
-            //Injectier DB context i controller
+            
+            //Dependency Injection -----------------------------------------------------------------------------------
+            //DBContext
             services.AddScoped<ITournamentContext>(provider => provider.GetService<TournamentContext>());
+            
+            //Services
+            services.AddScoped<ITournamentService,TournamentService>();
+            services.AddScoped<IDrawService,DrawService>();
+            services.AddScoped<IPlayerService,PlayerService>();
+            services.AddScoped<IMatchService,MatchService>();
+            
+            //Mappers
+            services.AddScoped<ITournamentMapper,TournamentMapper>();
+            services.AddScoped<IDrawMapper,DrawMapper>();
+            services.AddScoped<IPlayerMapper,PlayerMapper>();
+            services.AddScoped<IMatchMapper,MatchMapper>();
+            
+            //Repositories
+            services.AddScoped<ITournamentRepository,TournamentRepository>();
+            services.AddScoped<IDrawRepository,DrawRepository>();
+            services.AddScoped<IPlayerRepository,PlayerRepository>();
+            services.AddScoped<IMatchRepository,MatchRepository>();
+            
+            //Other
             services.AddControllers();
             services.AddMvc().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>

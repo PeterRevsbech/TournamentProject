@@ -12,9 +12,9 @@ namespace TournamentProj.Model
         
         public DateTime StartDate { get; set; }
 
-        public ICollection<Draw> Draws { get; set; }
+        public List<Draw> Draws { get; set; }
         
-        public ICollection<Player> Players { get; set; }
+        public List<Player> Players { get; set; }
         
     }
 }
