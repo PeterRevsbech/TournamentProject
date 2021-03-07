@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TournamentProj.Exceptions;
 using TournamentProj.Model;
@@ -17,7 +18,7 @@ namespace TournamentProj.Services.DrawCreationLogic
                 case DrawType.KO:
                     break;
                 case DrawType.RR:
-                    ConfigureMonrad(draw, drawCreation);
+                    ConfigureRR(draw, drawCreation);
                     break;
                 case DrawType.MONRAD:
                     break;
@@ -36,7 +37,7 @@ namespace TournamentProj.Services.DrawCreationLogic
             return draw;
         }
 
-        public static void ConfigureMonrad(Draw draw, DrawCreation drawCreation )
+        private static void ConfigureRR(Draw draw, DrawCreation drawCreation)
         {
             //Everybody plays against everybody
             
@@ -46,24 +47,84 @@ namespace TournamentProj.Services.DrawCreationLogic
 
             int[] playerIds = drawCreation.playerIds.ToArray();
             
-            IEnumerable<Match> matches = draw.Matches;
-            matches = new List<Match>();
+            var matches = new List<Match>();
             
             for (int i = 0; i< playerIds.Length; i++)
             {
                 for (int j = i+1; j < playerIds.Length; j++)
                 {
-                    matches.Append(
-                        new Match()
-                        {
-                            P1Id = playerIds[i],
-                            P2Id = playerIds[j],
-                            //DrawId = drawCreation TODO find out if this causes trouble - that the id is not specified - alternatively create the draw first and then add matches
-                            Status = Status.OPEN
-                        }
-                    );
+                    Match match = new Match()
+                    {
+                        P1Id = playerIds[i],
+                        P2Id = playerIds[j],
+                        Status = Status.OPEN
+                    };
+                    matches.Add(match);
                 }
             }
+
+            draw.Matches = matches;
+        }
+
+        private static void ConfigureKO(Draw draw, DrawCreation drawCreation)
+        {
+            var matches = new List<Match>();
+            
+            //Configure seeding
+            var seededPlayerIds = GetSeededPlayerIds(drawCreation.playerIds.ToList(), drawCreation.playerIdsSeeded);
+
+            int numberOfPlayers = seededPlayerIds.Count;
+            
+
+            draw.Matches = matches;
+        }
+
+        private static void ConfigureMonrad(Draw draw, DrawCreation drawCreation)
+        {
+            var playerIds = drawCreation.playerIds.ToArray();
+            
+            var matches = new List<Match>();
+            
+            for (int i = 0; i< playerIds.Length; i++)
+            {
+                for (int j = i+1; j < playerIds.Length; j++)
+                {
+                    Match match = new Match()
+                    {
+                        P1Id = playerIds[i],
+                        P2Id = playerIds[j],
+                        Status = Status.OPEN
+                    };
+                    matches.Add(match);
+                }
+            }
+
+            draw.Matches = matches;
+        }
+
+        private static List<int> GetSeededPlayerIds(List<int> playerIds, List<int> seededPlayerIds)
+        {
+            //If no seedings were made - just return
+            if (seededPlayerIds == null)
+            {
+                return playerIds;
+            }
+            
+            //Otherwise change the playerIds to correspond to seedings
+            //1) Remove seeded players from playerIds 
+            playerIds = playerIds.Except(seededPlayerIds).ToList();
+            //2) Scramble unseeded players for fairness
+            playerIds = Randomize(playerIds);
+            //3) append unseeded players to back of seeded players
+            seededPlayerIds.AddRange(playerIds);
+            //result is a pseudo-seeded list of players
+            return seededPlayerIds;
+        }
+        
+        public static List<int> Randomize(List<int> input)
+        {
+            Random rnd = new Random();
+            return input.OrderBy((item) => rnd.Next()).ToList();
         }
         
     }

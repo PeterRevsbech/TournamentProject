@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TournamentProj.DTO.Draw;
 using TournamentProj.Model;
 
@@ -37,7 +38,7 @@ namespace TournamentProj.Mappers
                 TieBreaks = draw.TieBreaks,
                 MatchIds = new List<int>()
             };
-            if (draw.Matches != null && draw.Matches.Count > 0)
+            if (draw.Matches != null && draw.Matches.ToArray().Length > 0)
             {
                 foreach (var match in draw.Matches)
                 {
