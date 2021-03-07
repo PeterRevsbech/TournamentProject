@@ -54,9 +54,8 @@ namespace TournamentProj.Controllers
 
 
         [HttpPut]
-        public IActionResult Put(JObject payload)
+        public IActionResult Put(DrawDTO dto)
         {
-            var dto = JsonConvert.DeserializeObject<DrawDTO>(payload.ToString());
             var input = _mapper.FromDTO(dto);
 
             var result = _drawService.Update(input);

@@ -48,9 +48,8 @@ namespace TournamentProj.Controllers
         }
         
         [HttpPost]
-        public IActionResult Post(JObject payload)
+        public IActionResult Post(PlayerDTO dto)
         {
-            var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
             var input = _mapper.FromDTO(dto);
 
             var result =_playerService.Create(input);
@@ -59,9 +58,8 @@ namespace TournamentProj.Controllers
         
         
         [HttpPut]
-        public IActionResult Put(JObject payload)
+        public IActionResult Put(PlayerDTO dto)
         {
-            var dto = JsonConvert.DeserializeObject<PlayerDTO>(payload.ToString());
             var input = _mapper.FromDTO(dto);
 
             var result = _playerService.Update(input);

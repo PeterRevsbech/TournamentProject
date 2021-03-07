@@ -34,8 +34,30 @@ namespace TournamentProj.Model
                             Id = 10,
                             TournamentId = 1,
                             Name = "DU13 Finalerunde",
-                            DrawType = DrawType.MONRAD,
+                            DrawType = DrawType.RR,
                             Matches = new List<Match>()
+                            {
+                                new Match()
+                                {
+                                    P1Id = 15,
+                                    P2Id = 16,
+                                    Status = Status.CLOSED
+                                }
+                                ,
+                                new Match()
+                                {
+                                    P1Id = 15,
+                                    P2Id = 17,
+                                    Status = Status.CLOSED
+                                }
+                                ,
+                                new Match()
+                                {
+                                    P1Id = 16,
+                                    P2Id = 17,
+                                    Status = Status.CLOSED
+                                }
+                            }
                         }
                         ,
                         new ()
@@ -51,16 +73,19 @@ namespace TournamentProj.Model
                     {
                         new Player()
                         {
+                            Id = 15,
                             Name = "Peter Revsbech",
                         }
                         ,
                         new Player()
                         {
+                            Id = 16,
                             Name = "Simon Steenholdt",
                         }
                         ,
                         new Player()
                         {
+                            Id = 17,
                             Name = "Sebastian Brinker",
                         }
                     }
