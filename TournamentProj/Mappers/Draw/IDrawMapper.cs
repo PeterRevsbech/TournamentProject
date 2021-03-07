@@ -9,6 +9,10 @@ namespace TournamentProj.Mappers
         public DrawDTO ToDTO(Draw draw);
 
         public IEnumerable<DrawDTO> ToDtoArray(IEnumerable<Draw> draws);
+
+        public DrawCreationDTO ToCreationDTO(DrawCreation drawCreation);
+
+        public DrawCreation FromCreationDTO(DrawCreationDTO drawCreationDTO);
     }
 }
 

@@ -13,6 +13,7 @@ namespace TournamentProj.Mappers
                 Name = dto.Name,
                 Id = dto.Id,
                 TournamentId = dto.TournamentId,
+                DrawType = DrawTypeFromDTO(dto.DrawTypeDTO),
                 Points = dto.Points,
                 Games = dto.Games,
                 Sets = dto.Sets,
@@ -29,6 +30,7 @@ namespace TournamentProj.Mappers
                 Name = draw.Name,
                 Id = draw.Id,
                 TournamentId = draw.TournamentId,
+                DrawTypeDTO = DrawTypeToDTO(draw.DrawType),
                 Points = draw.Points,
                 Games = draw.Games,
                 Sets = draw.Sets,
@@ -53,5 +55,70 @@ namespace TournamentProj.Mappers
                 yield return ToDTO(item);
             }
         }
+
+        public DrawCreation FromCreationDTO(DrawCreationDTO dto)
+        {
+            DrawCreation drawCreation = new DrawCreation()
+            {
+                TournamentId = dto.TournamentId,
+                playerIds = dto.playerIds,
+                DrawType = DrawTypeFromDTO(dto.DrawTypeDTO),
+                Name = dto.Name,
+                Sets = dto.Sets,
+                Games = dto.Games,
+                Points = dto.Points,
+                TieBreaks = dto.TieBreaks,
+                playerIdsSeeded = dto.playerIdsSeeded
+            };
+            return drawCreation;
+        }
+        
+        public DrawCreationDTO ToCreationDTO(DrawCreation drawCreation)
+        {
+            var dto = new DrawCreationDTO()
+            {
+                TournamentId = drawCreation.TournamentId,
+                playerIds = drawCreation.playerIds,
+                DrawTypeDTO = DrawTypeToDTO(drawCreation.DrawType),
+                Name = drawCreation.Name,
+                Sets = drawCreation.Sets,
+                Games = drawCreation.Games,
+                Points = drawCreation.Points,
+                TieBreaks = drawCreation.TieBreaks,
+                playerIdsSeeded = drawCreation.playerIdsSeeded
+            };
+            return dto;
+        }
+
+        private DrawTypeDTO DrawTypeToDTO(DrawType drawType)
+        {
+            switch (drawType)
+            {
+                case DrawType.KO:
+                    return DrawTypeDTO.KO;
+                case DrawType.RR:
+                    return DrawTypeDTO.RR;
+                case DrawType.MONRAD:
+                    return DrawTypeDTO.MONRAD;
+                default:
+                    return 0;
+            }
+        }
+        
+        private DrawType DrawTypeFromDTO(DrawTypeDTO dto)
+        {
+            switch (dto)
+            {
+                case DrawTypeDTO.KO:
+                    return DrawType.KO;
+                case DrawTypeDTO.RR:
+                    return DrawType.RR;
+                case DrawTypeDTO.MONRAD:
+                    return DrawType.MONRAD;
+                default:
+                    return 0;
+            }
+        }
     }
 }
+  

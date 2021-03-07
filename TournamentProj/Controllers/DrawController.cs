@@ -51,7 +51,16 @@ namespace TournamentProj.Controllers
             var result =_drawService.Create(input);
             return Ok(_mapper.ToDTO(result));
         }
-
+            
+        [Route("Generate/")]
+        [HttpPost]
+        //Automatically sets a draw up according to specifications is DrawCreationDTO
+        public IActionResult PostAutomaticCreation(DrawCreationDTO dto)
+        {
+            var drawCreation = _mapper.FromCreationDTO(dto);
+            var result =_drawService.CreateAutomatic(drawCreation);
+            return Ok(_mapper.ToDTO(result));
+        }
 
         [HttpPut]
         public IActionResult Put(DrawDTO dto)

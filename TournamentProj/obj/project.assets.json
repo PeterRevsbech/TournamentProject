@@ -1120,20 +1120,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\peter\\.nuget\\packages\\": {}
+    "C:\\Users\\peter\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\peter\\RiderProjects\\TournamentProjectNew\\TournamentProj\\TournamentProj.csproj",
+      "projectUniqueName": "C:\\Users\\peter\\RiderProjects\\TournamentProject\\TournamentProj\\TournamentProj.csproj",
       "projectName": "TournamentProj",
-      "projectPath": "C:\\Users\\peter\\RiderProjects\\TournamentProjectNew\\TournamentProj\\TournamentProj.csproj",
+      "projectPath": "C:\\Users\\peter\\RiderProjects\\TournamentProject\\TournamentProj\\TournamentProj.csproj",
       "packagesPath": "C:\\Users\\peter\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\peter\\RiderProjects\\TournamentProjectNew\\TournamentProj\\obj\\",
+      "outputPath": "C:\\Users\\peter\\RiderProjects\\TournamentProject\\TournamentProj\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet"
+      ],
       "configFilePaths": [
         "C:\\Users\\peter\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"

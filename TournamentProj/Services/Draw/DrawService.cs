@@ -2,6 +2,7 @@
 using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.Model;
+using TournamentProj.Services.DrawCreationLogic;
 
 namespace TournamentProj.Services
 {
@@ -22,6 +23,12 @@ namespace TournamentProj.Services
             _drawRepository.Insert(draw);
             _dbContext.SaveChanges();
             return draw;
+        }
+
+        public Draw CreateAutomatic(DrawCreation drawCreation)
+        {
+            var generatedDraw = DrawCreator.GenerateDraw(drawCreation);
+            return Create(generatedDraw);
         }
 
         public Draw Get(int id)
