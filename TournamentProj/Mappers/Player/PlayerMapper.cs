@@ -25,9 +25,18 @@ namespace TournamentProj.Mappers
             {
                 Id = player.Id,
                 Name = player.Name,
-                TournamentId = player.TournamentId == 0 ? player.Tournament.Id : player.TournamentId
             };
-       
+            
+            if (player.TournamentId != 0)
+            {
+                dto.TournamentId = player.TournamentId;
+            }
+            else
+            {
+                dto.TournamentId = 0;
+            }
+
+
             return dto;
         }
 

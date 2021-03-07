@@ -12,9 +12,9 @@ namespace TournamentProj.Model
         public int Id { get; set; }
         public int TournamentId { get; set; }
         
-        public virtual Tournament Tournament { get; set; }
+        public Tournament Tournament { get; set; }
         
-        public virtual ICollection<Match> Matches { get; set; }
+        public ICollection<Match> Matches { get; set; }
         public string Name { get; set; }
         
         public DrawType DrawType { get; set; }
