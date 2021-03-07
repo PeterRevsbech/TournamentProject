@@ -10,6 +10,7 @@ namespace TournamentProj.Services
         Match Get(int id);
 
         IEnumerable<Match> GetByPlayerId(int playerId);
+        IEnumerable<Match> GetByDrawId(int drawId);
 
         IEnumerable<Match> GetAll();
         

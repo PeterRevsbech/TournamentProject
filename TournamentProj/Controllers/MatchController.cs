@@ -50,6 +50,16 @@ namespace TournamentProj.Controllers
             return Ok(_mapper.ToDtoArray(result));
         }
         
+        
+        [Route("Draw/{drawId:int}")]
+        [HttpGet]
+        public IActionResult GetByDrawId(int drawId)
+        {
+            var result = _matchService.GetByDrawId(drawId);
+            return Ok(_mapper.ToDtoArray(result));
+        }
+        
+        
         [HttpPost]
         public IActionResult Post(MatchDTO dto)
         {

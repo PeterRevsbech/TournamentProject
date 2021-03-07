@@ -33,7 +33,12 @@ namespace TournamentProj.Services
         {
             return _matchRepository.FindByPlayerId(playerId);
         }
-        
+
+        public IEnumerable<Match> GetByDrawId(int drawId)
+        {
+            return _matchRepository.FindByDrawId(drawId);
+        }
+
         public IEnumerable<Match> GetAll()
         {
             return _matchRepository.FindAll();
