@@ -8,11 +8,9 @@ namespace TournamentProj.DAL
 {
     public class MatchRepository : IMatchRepository
     {
-        private readonly ITournamentContext _context;
         private readonly DbSet<Match> _dbSet;
         public MatchRepository(ITournamentContext context)
         {
-            _context = context;
             _dbSet = context.Matches;
         }
         

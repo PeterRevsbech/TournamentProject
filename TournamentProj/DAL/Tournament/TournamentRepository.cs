@@ -11,12 +11,10 @@ namespace TournamentProj.DAL
 {
     public class TournamentRepository : ITournamentRepository
     {
-        private readonly ITournamentContext _context;
         private readonly DbSet<Tournament> _dbSet;
 
         public TournamentRepository(ITournamentContext context)
         {
-            _context = context;
             _dbSet = context.Tournaments;
         }
         
@@ -24,7 +22,7 @@ namespace TournamentProj.DAL
         {
             //Include laver et join kald i databasen ==> join tournament med draws
             var x =_dbSet
-                .Include(x => x.Draws)
+                .Include(tournament => tournament.Draws)
                 .ThenInclude(draw => draw.Matches)
                 .Include(tournament => tournament.Players)
                 .ToArray();

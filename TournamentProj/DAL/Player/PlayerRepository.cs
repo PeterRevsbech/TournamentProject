@@ -8,11 +8,9 @@ namespace TournamentProj.DAL
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly ITournamentContext _context;
         private readonly DbSet<Player> _dbSet;
         public PlayerRepository(ITournamentContext context)
         {
-            _context = context;
             _dbSet = context.Players;
         }
         

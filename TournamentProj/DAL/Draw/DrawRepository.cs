@@ -8,26 +8,32 @@ namespace TournamentProj.DAL
 {
     public class DrawRepository : IDrawRepository
     {
-        private readonly ITournamentContext _context;
         private readonly DbSet<Draw> _dbSet;
         public DrawRepository(ITournamentContext context)
         {
-            _context = context;
             _dbSet = context.Draws;
         }
         
         public IEnumerable<Draw> FindAll()
         {
-            return _dbSet.ToArray();
+            var result =_dbSet
+                .Include(draw => draw.Matches)
+                .ToArray();
+            return result;
         }
 
         public Draw FindById(int id)
         {
-            return _dbSet.Find(id);
+            var result= _dbSet.Where(draw => id == draw.Id)
+                .Include(draw => draw.Matches)
+                .FirstOrDefault();
+
+            return result;
         }
 
         public void Insert(Draw draw)
         {
+            //TODO få den til at genkende den tournament, den hører til
             _dbSet.Add(draw);
         }
 

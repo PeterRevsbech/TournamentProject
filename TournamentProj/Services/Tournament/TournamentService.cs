@@ -12,11 +12,10 @@ namespace TournamentProj.Services.tournament
         private readonly ITournamentRepository _tournamentRepository;
         private readonly ITournamentContext _dbContext;
 
-        public TournamentService(ITournamentContext dbContext)
+        public TournamentService(ITournamentContext dbContext, ITournamentRepository tournamentRepository)
         {
             _dbContext = dbContext;
-            //TODO maybe not so good to use constructor here
-            _tournamentRepository = new TournamentRepository(dbContext);
+            _tournamentRepository = tournamentRepository;
         }
 
         
