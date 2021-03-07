@@ -33,7 +33,6 @@ namespace TournamentProj.DAL
 
         public void Insert(Draw draw)
         {
-            //TODO få den til at genkende den tournament, den hører til
             _dbSet.Add(draw);
         }
 
