@@ -157,29 +157,16 @@ namespace TournamentProj.Model
                     Matches = new List<Match>()
                 }
             );
-/*
+
             context.Players.AddRange(
                 new Player()
                 {
-                    
+                    Id = Player.BYE_ID,
+                    Name = "Bye"
                 }
-                ,
-                new Player()
-                {
-                    
-                }
-                ,
-                new Player()
-                {
-                    
-                }
-                ,
-                new Player()
-                {
-                    
-                }
+                
             );
-*/
+
             
             
             context.SaveChanges();

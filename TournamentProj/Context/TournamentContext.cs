@@ -21,23 +21,6 @@ namespace TournamentProj.Context
 
         public DbSet<Match> Matches { get; set; }
         
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Draw>()
-                .HasOne(t => t.Tournament)
-                .WithMany(d => d.Draws)
-                .HasForeignKey("TournamentFK");
-
-            modelBuilder.Entity<Player>()
-                .HasOne(t => t.Tournament)
-                .WithMany(p => p.Players)
-                .HasForeignKey("TournamentFK");
-            
-            modelBuilder.Entity<Match>()
-                .HasOne(d => d.Draw)
-                .WithMany(m => m.Matches)
-                .HasForeignKey("DrawFK");
-        }
         
     }
 }

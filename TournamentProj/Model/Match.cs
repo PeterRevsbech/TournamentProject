@@ -11,6 +11,7 @@ namespace TournamentProj.Model
     }
     public class Match
     {
+
         [Key]
         public int Id { get; set; }
 

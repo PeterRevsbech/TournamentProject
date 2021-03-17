@@ -73,7 +73,16 @@ namespace TournamentProj.Services.DrawCreationLogic
             //Configure seeding
             var seededPlayerIds = GetSeededPlayerIds(drawCreation.playerIds.ToList(), drawCreation.playerIdsSeeded);
 
-            int numberOfPlayers = seededPlayerIds.Count;
+            while (!IsPowerOf2(seededPlayerIds.Count))
+            {
+                //Add byes so playerIds is power of 2
+                seededPlayerIds.Add(-1);
+            }
+            
+            //In first round we pair 
+            
+            
+            
             
 
             draw.Matches = matches;
@@ -85,46 +94,52 @@ namespace TournamentProj.Services.DrawCreationLogic
             
             var matches = new List<Match>();
             
-            for (int i = 0; i< playerIds.Length; i++)
-            {
-                for (int j = i+1; j < playerIds.Length; j++)
-                {
-                    Match match = new Match()
-                    {
-                        P1Id = playerIds[i],
-                        P2Id = playerIds[j],
-                        Status = Status.OPEN
-                    };
-                    matches.Add(match);
-                }
-            }
+            
 
             draw.Matches = matches;
         }
 
         private static List<int> GetSeededPlayerIds(List<int> playerIds, List<int> seededPlayerIds)
         {
-            //If no seedings were made - just return
-            if (seededPlayerIds == null)
+            //If no seedings were made - just randomize and return input
+            if (seededPlayerIds == null || seededPlayerIds.Count==0)
             {
-                return playerIds;
+                return Randomize(playerIds);
             }
             
-            //Otherwise change the playerIds to correspond to seedings
+            //Otherwise change order in playerIds to correspond to seedings
             //1) Remove seeded players from playerIds 
             playerIds = playerIds.Except(seededPlayerIds).ToList();
+            
             //2) Scramble unseeded players for fairness
             playerIds = Randomize(playerIds);
-            //3) append unseeded players to back of seeded players
+            
+            //3) append unseeded players to back of list behind seeded players
             seededPlayerIds.AddRange(playerIds);
+            
             //result is a pseudo-seeded list of players
             return seededPlayerIds;
         }
         
-        public static List<int> Randomize(List<int> input)
+        private static List<int> Randomize(List<int> input)
         {
             Random rnd = new Random();
             return input.OrderBy((item) => rnd.Next()).ToList();
+        }
+
+        private static bool IsPowerOf2(int n)
+        {
+            while (n>0)
+            {
+                if (n % 2 != 0)
+                {
+                    return false;
+                }
+
+                n /= 2;
+            }
+
+            return true;
         }
         
     }

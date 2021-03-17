@@ -5,6 +5,8 @@ namespace TournamentProj.Model
 {
     public class Player
     {
+        public static int BYE_ID = -1;
+
         [Key]
         public int Id { get; set; }
         
