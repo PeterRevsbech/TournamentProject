@@ -25,6 +25,11 @@ namespace TournamentProj.DAL.MatchDependencyRepository
             return _dbSet.Find(id);
         }
 
+        public IEnumerable<MatchDependency> FindByMatchId(int matchId)
+        {
+            return _dbSet.Where(MatchDependency => MatchDependency.MatchId == matchId).ToArray();
+        }
+
         public void Insert(MatchDependency matchDependency)
         {
             _dbSet.Add(matchDependency);

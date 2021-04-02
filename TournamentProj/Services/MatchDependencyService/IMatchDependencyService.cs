@@ -8,6 +8,8 @@ namespace TournamentProj.Services.MatchDependencyService
         MatchDependency Create(MatchDependency matchDependency);
 
         MatchDependency Get(int id);
+        
+        IEnumerable<MatchDependency> GetByMatchId(int matchId);
 
         IEnumerable<MatchDependency> GetAll();
 
