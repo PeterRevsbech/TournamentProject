@@ -9,6 +9,7 @@ using TournamentProj.DTO.Draw;
 using TournamentProj.DTO.Player;
 using TournamentProj.Mappers;
 using TournamentProj.Services;
+using TournamentProj.Services.DrawService;
 
 namespace TournamentProj.Controllers
 {

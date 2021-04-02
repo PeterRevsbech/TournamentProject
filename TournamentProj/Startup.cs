@@ -1,23 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.Mappers;
-using TournamentProj.Services;
-using TournamentProj.Services.tournament;
+using TournamentProj.Services.DrawService;
+using TournamentProj.Services.MatchService;
+using TournamentProj.Services.PlayerService;
+using TournamentProj.Services.TournamentService;
 
 namespace TournamentProj
 {

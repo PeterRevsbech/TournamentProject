@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TournamentProj.Model;
 
-namespace TournamentProj.Services
+namespace TournamentProj.Services.PlayerService
 {
     public interface IPlayerService
     {

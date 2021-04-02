@@ -38,5 +38,10 @@ namespace TournamentProj.Model
         public int P2Games { get; set; }
         public int P2Sets { get; set; }
         public int P2Points { get; set; }
+
+        public MatchDependency p1Dependency { get; set; }
+        
+        public MatchDependency p2Dependency { get; set; }
+        
     }
 }

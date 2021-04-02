@@ -2,9 +2,8 @@
 using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.Model;
-using TournamentProj.Services.DrawCreationLogic;
 
-namespace TournamentProj.Services
+namespace TournamentProj.Services.DrawService
 {
     public class DrawService : IDrawService
     {

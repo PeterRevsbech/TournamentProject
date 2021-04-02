@@ -12,6 +12,7 @@ using TournamentProj.DTO.Player;
 using TournamentProj.Mappers;
 using TournamentProj.Model;
 using TournamentProj.Services;
+using TournamentProj.Services.PlayerService;
 
 namespace TournamentProj.Controllers
 {

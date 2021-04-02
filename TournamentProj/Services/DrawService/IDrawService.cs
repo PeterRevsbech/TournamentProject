@@ -2,7 +2,7 @@
 using TournamentProj.DTO.Draw;
 using TournamentProj.Model;
 
-namespace TournamentProj.Services
+namespace TournamentProj.Services.DrawService
 {
     public interface IDrawService
     {

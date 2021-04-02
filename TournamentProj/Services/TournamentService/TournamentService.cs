@@ -5,7 +5,7 @@ using TournamentProj.DAL;
 using TournamentProj.DTO.Tournament;
 using TournamentProj.Model;
 
-namespace TournamentProj.Services.tournament
+namespace TournamentProj.Services.TournamentService
 {
     public class TournamentService : ITournamentService
     {

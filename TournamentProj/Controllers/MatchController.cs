@@ -9,6 +9,7 @@ using TournamentProj.DTO.Player;
 using TournamentProj.Mappers;
 using TournamentProj.Model;
 using TournamentProj.Services;
+using TournamentProj.Services.MatchService;
 
 namespace TournamentProj.Controllers
 {

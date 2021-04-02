@@ -3,7 +3,7 @@ using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.Model;
 
-namespace TournamentProj.Services
+namespace TournamentProj.Services.MatchService
 {
     public class MatchService : IMatchService
     {

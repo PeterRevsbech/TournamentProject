@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using TournamentProj.Context;
 using TournamentProj.Model;
 
 namespace TournamentProj.DAL
 {
     public interface IMatchRepository
     {
+        
         public IEnumerable<Match> FindAll();
 
         public Match FindById(int id);

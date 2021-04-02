@@ -10,7 +10,7 @@ using TournamentProj.Context;
 using TournamentProj.DTO.Tournament;
 using TournamentProj.Mappers;
 using TournamentProj.Model;
-using TournamentProj.Services.tournament;
+using TournamentProj.Services.TournamentService;
 
 namespace TournamentProj.Controllers
 {

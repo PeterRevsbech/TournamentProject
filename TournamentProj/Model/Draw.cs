@@ -24,6 +24,8 @@ namespace TournamentProj.Model
         public int Points { get; set; }
         
         public bool TieBreaks { get; set; }
+        
+        
 
 
     }

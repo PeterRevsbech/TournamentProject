@@ -4,7 +4,7 @@ using System.Linq;
 using TournamentProj.Exceptions;
 using TournamentProj.Model;
 
-namespace TournamentProj.Services.DrawCreationLogic
+namespace TournamentProj.Services.DrawService
 {
     public static class DrawCreator
     {

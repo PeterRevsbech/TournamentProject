@@ -4,7 +4,7 @@ using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.Model;
 
-namespace TournamentProj.Services
+namespace TournamentProj.Services.PlayerService
 {
     public class PlayerService : IPlayerService
     {
