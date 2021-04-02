@@ -26,5 +26,9 @@ namespace TournamentProj.DTO.Match
         public int P2Sets { get; set; }
         public int P2Games { get; set; }
         public int P2Points { get; set; }
+        
+        public int P1DependencyId { get; set; }
+        
+        public int P2DependencyId { get; set; }
     }
 }

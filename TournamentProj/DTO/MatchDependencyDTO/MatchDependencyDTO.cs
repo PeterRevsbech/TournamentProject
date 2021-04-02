@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         
-        public int MatchId { get; set; }
+        //public int MatchId { get; set; }
 
         public int DependencyId { get; set; }
         

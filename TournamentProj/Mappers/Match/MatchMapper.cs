@@ -23,7 +23,9 @@ namespace TournamentProj.Mappers
                 P2Match = dto.P2Match,
                 P2Games = dto.P2Games,
                 P2Sets = dto.P2Sets,
-                P2Points = dto.P2Points
+                P2Points = dto.P2Points,
+                P1DependencyId = dto.P1DependencyId,
+                P2DependencyId = dto.P2DependencyId
             };
 
             return match;
@@ -46,7 +48,9 @@ namespace TournamentProj.Mappers
                 P2Match = match.P2Match,
                 P2Games = match.P2Games,
                 P2Sets = match.P2Sets,
-                P2Points = match.P2Points
+                P2Points = match.P2Points,
+                P1DependencyId = match.P1DependencyId,
+                P2DependencyId = match.P2DependencyId
             };
 
             return dto;

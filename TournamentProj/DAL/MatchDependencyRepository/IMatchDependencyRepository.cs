@@ -8,8 +8,6 @@ namespace TournamentProj.DAL.MatchDependencyRepository
         public IEnumerable<MatchDependency> FindAll();
 
         public MatchDependency FindById(int id);
-        
-        public IEnumerable<MatchDependency> FindByMatchId(int matchId);
 
         public void Insert(MatchDependency matchDependency);
         

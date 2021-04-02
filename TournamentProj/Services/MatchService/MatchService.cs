@@ -16,7 +16,6 @@ namespace TournamentProj.Services.MatchService
             _matchRepository = matchRepository;
         }
 
-        
         public Match Create(Match match)
         {
             _matchRepository.Insert(match);

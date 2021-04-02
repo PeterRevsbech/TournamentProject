@@ -29,11 +29,6 @@ namespace TournamentProj.Services.MatchDependencyService
             return _matchDependencyRepository.FindById(id);
         }
 
-        public IEnumerable<MatchDependency> GetByMatchId(int matchId)
-        {
-            return _matchDependencyRepository.FindByMatchId(matchId);
-        }
-
         public IEnumerable<MatchDependency> GetAll()
         {
             return _matchDependencyRepository.FindAll();

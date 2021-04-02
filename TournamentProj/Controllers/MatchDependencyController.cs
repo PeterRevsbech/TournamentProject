@@ -27,13 +27,6 @@ namespace TournamentProj.Controllers
         {
             return _mapper.ToDtoArray(_matchDependencyService.GetAll());
         }
-        
-        [HttpGet]
-        public IEnumerable<MatchDependencyDTO> GetByMatchId(int matchId)
-        {
-            return _mapper.ToDtoArray(_matchDependencyService.GetByMatchId(matchId));
-        }
-
 
         [Route("{id:int}")]
         [HttpGet]
