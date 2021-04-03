@@ -7,8 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TournamentProj.Context;
 using TournamentProj.DAL;
+using TournamentProj.DAL.MatchDependencyRepository;
 using TournamentProj.Mappers;
+using TournamentProj.Mappers.MatchDependencyMapper;
 using TournamentProj.Services.DrawService;
+using TournamentProj.Services.MatchDependencyService;
 using TournamentProj.Services.MatchService;
 using TournamentProj.Services.PlayerService;
 using TournamentProj.Services.TournamentService;
@@ -39,18 +42,21 @@ namespace TournamentProj
             services.AddScoped<IDrawService,DrawService>();
             services.AddScoped<IPlayerService,PlayerService>();
             services.AddScoped<IMatchService,MatchService>();
+            services.AddScoped<IMatchDependencyService,MatchDependencyService>();
             
             //Mappers
             services.AddScoped<ITournamentMapper,TournamentMapper>();
             services.AddScoped<IDrawMapper,DrawMapper>();
             services.AddScoped<IPlayerMapper,PlayerMapper>();
             services.AddScoped<IMatchMapper,MatchMapper>();
+            services.AddScoped<IMatchDependencyMapper,MatchDependencyMapper>();
             
             //Repositories
             services.AddScoped<ITournamentRepository,TournamentRepository>();
             services.AddScoped<IDrawRepository,DrawRepository>();
             services.AddScoped<IPlayerRepository,PlayerRepository>();
             services.AddScoped<IMatchRepository,MatchRepository>();
+            services.AddScoped<IMatchDependencyRepository,MatchDependencyRepository>();
             
             //Other
             services.AddControllers();
