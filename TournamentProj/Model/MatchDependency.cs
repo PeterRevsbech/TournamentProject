@@ -6,15 +6,7 @@ namespace TournamentProj.Model
     {
         [Key]
         public int Id { get; set; }
-        
-        /*
-         * Id of the match, the dependency belongs to
-         
-        public int MatchId { get; set; }
-        
-        public Match Match { get; set; }
-        */
-        
+
         /*
          * Id of the match or draw, that the dependency points to. E.g. "player will be winner of match with ID x"
          */ public int DependencyId { get; set; }

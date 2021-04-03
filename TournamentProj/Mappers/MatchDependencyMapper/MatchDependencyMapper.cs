@@ -11,7 +11,6 @@ namespace TournamentProj.Mappers.MatchDependencyMapper
             var matchDependency = new MatchDependency()
             {
                 Id = dto.Id,
-                //MatchId = dto.MatchId,
                 DependencyId = dto.DependencyId,
                 DependsOnDraw = dto.DependsOnDraw,
                 Position = dto.Position
@@ -25,7 +24,6 @@ namespace TournamentProj.Mappers.MatchDependencyMapper
             var dto = new MatchDependencyDTO()
             {
                 Id = matchDependency.Id,
-                //MatchId = matchDependency.MatchId,
                 DependencyId = matchDependency.DependencyId,
                 DependsOnDraw = matchDependency.DependsOnDraw,
                 Position = matchDependency.Position
