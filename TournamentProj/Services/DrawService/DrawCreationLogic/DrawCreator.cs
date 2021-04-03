@@ -89,9 +89,12 @@ namespace TournamentProj.Services.DrawService
 
             int lastRound = Math.ILogB(seededPlayerIds.Count);
             int roundSize = seededPlayerIds.Count / 2;
+            
             //Configure first round manually - no match dependencies - matches are open
+            //Byes should be paired with top-seeded players in first round
             var opponents = seededPlayerIds.Skip(seededPlayerIds.Count / 2).ToList();
-            opponents = Randomize(opponents);
+            opponents = BringByesToFront(Randomize(opponents));
+            
 
             for (int i = 0; i < roundSize; i++)
             {
@@ -200,6 +203,27 @@ namespace TournamentProj.Services.DrawService
         {
             Random rnd = new Random();
             return input.OrderBy((item) => rnd.Next()).ToList();
+        }
+
+        private static List<int> BringByesToFront(List<int> input)
+        {
+            var newList = new List<int>();
+            for (int i = 0; i < input.Count; i++)
+            {
+                if (input[i] == -1)
+                {
+                    newList.Add(-1);
+                }
+            }
+            for (int i = 0; i < input.Count; i++)
+            {
+                if (input[i] != -1)
+                {
+                    newList.Add(input[i]);
+                }
+            }
+
+            return newList;
         }
 
         private static bool IsPowerOf2(int n)

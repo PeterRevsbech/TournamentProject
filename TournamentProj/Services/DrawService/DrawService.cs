@@ -22,6 +22,7 @@ namespace TournamentProj.Services.DrawService
             _dbContext = dbContext;
             _drawRepository = drawRepository;
             _matchRepository = matchRepository;
+            _matchDependencyRepository = matchDependencyRepository;
         }
 
         
@@ -87,19 +88,19 @@ namespace TournamentProj.Services.DrawService
                         if (dependentMatch.P1DependencyId == match.Id)
                         {
                             matchDependency = _matchDependencyRepository.FindById(dependentMatch.P1DependencyId);
-                            dependentMatch.P1Id = FindResultingPlayerFromMatch(matchDependency);
+                            dependentMatch.P1Id = FindResultingPlayerFromMatchDepdendency(matchDependency);
                         }
                         else
                         {
                             matchDependency = _matchDependencyRepository.FindById(dependentMatch.P2DependencyId);
-                            dependentMatch.P2Id = FindResultingPlayerFromMatch(matchDependency);
+                            dependentMatch.P2Id = FindResultingPlayerFromMatchDepdendency(matchDependency);
                         }
                     }
                 } 
             }
         }
 
-        private int FindResultingPlayerFromMatch(MatchDependency matchDependency)
+        private int FindResultingPlayerFromMatchDepdendency(MatchDependency matchDependency)
         {
             var match = _matchRepository.FindById(matchDependency.DependencyId);
             var wantedPosition = matchDependency.Position;
