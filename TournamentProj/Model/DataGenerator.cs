@@ -91,6 +91,25 @@ namespace TournamentProj.Model
                             Id = 17,
                             Name = "Sebastian Brinker",
                         }
+                        ,
+                        new Player()
+                        {
+                        Id = 18,
+                        Name = "Ramy Ashour",
+                        }
+                        ,
+                        new Player()
+                        {
+                            Id = 19,
+                            Name = "Jonathon Power",
+                        }
+                        ,
+                        new Player()
+                        {
+                            Id = 20,
+                            Name = "James Wilstrop",
+                        }
+                    
                     }
                 },
                 new Tournament

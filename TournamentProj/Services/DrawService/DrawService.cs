@@ -77,9 +77,13 @@ namespace TournamentProj.Services.DrawService
                 {
                     match.Status = Status.FINISHED;
                     match.P1Won = (match.P2Id == -1); // Player that is not a bye has now won
+                    
+                    
                     //Update players in matches that depend on this one
                     var dependentMatches = draw.Matches
-                        .Where(m => (m.P1DependencyId == match.Id || m.P2DependencyId == match.Id));
+                        .Where(m => (
+                            _matchDependencyRepository.FindById(m.P1DependencyId).DependencyId == match.Id 
+                            || _matchDependencyRepository.FindById(m.P2DependencyId).DependencyId == match.Id));
                     
                     //Go through matches that depend on this one to update their dependencies
                     foreach (var dependentMatch in dependentMatches)
@@ -113,5 +117,8 @@ namespace TournamentProj.Services.DrawService
                 return match.P2Id;
             }
         }
+        
+        
+        
     }
 }

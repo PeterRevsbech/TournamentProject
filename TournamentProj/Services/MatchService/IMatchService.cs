@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using TournamentProj.DAL;
+using TournamentProj.DAL.MatchDependencyRepository;
 using TournamentProj.Model;
 
 namespace TournamentProj.Services.MatchService
@@ -17,5 +19,6 @@ namespace TournamentProj.Services.MatchService
         Match Delete(int id);
 
         Match Update(Match match);
+        
     }
 }
