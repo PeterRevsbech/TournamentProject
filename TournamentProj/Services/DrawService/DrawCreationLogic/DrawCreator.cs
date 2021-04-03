@@ -16,6 +16,7 @@ namespace TournamentProj.Services.DrawService
             switch (drawCreation.DrawType)
             {
                 case DrawType.KO:
+                    ConfigureKO(draw,drawCreation);
                     break;
                 case DrawType.RR:
                     ConfigureRR(draw, drawCreation);
@@ -78,8 +79,35 @@ namespace TournamentProj.Services.DrawService
                 //Add byes so playerIds is power of 2
                 seededPlayerIds.Add(-1);
             }
+
+            int lastRound = Math.ILogB(seededPlayerIds.Count);
+            int roundSize = seededPlayerIds.Count / 2;
+            //Configure first round manually - no match dependencies
+            var opponents = seededPlayerIds.Skip(seededPlayerIds.Count / 2).ToList();
+            opponents = Randomize(opponents);
+
+            for (int i = 0; i < roundSize; i++)
+            {
+                var match = new Match()
+                {
+                    Draw = draw,
+                    DrawId = draw.Id,
+                    P1Id = seededPlayerIds[i],
+                    P2Id = opponents[0]
+                };
+                //Remove that opponent
+                opponents.Remove(opponents[0]);
+                matches.Add(match);
+            }
             
-            //In first round we pair 
+            
+            
+
+            //Configure next rounds with match dependencies
+            for (var round = 2; round <= lastRound; round++)
+            {
+                
+            }
             
             
             
@@ -129,7 +157,7 @@ namespace TournamentProj.Services.DrawService
 
         private static bool IsPowerOf2(int n)
         {
-            while (n>0)
+            while (n!=1)
             {
                 if (n % 2 != 0)
                 {
