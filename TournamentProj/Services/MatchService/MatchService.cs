@@ -11,13 +11,18 @@ namespace TournamentProj.Services.MatchService
     {
         private readonly IMatchRepository _matchRepository;
         private readonly IMatchDependencyRepository _matchDependencyRepository;
+        private readonly IDrawRepository _drawRepository;
         private readonly ITournamentContext _dbContext;
 
-        public MatchService(ITournamentContext dbContext, IMatchRepository matchRepository, IMatchDependencyRepository matchDependencyRepository)
+        public MatchService(ITournamentContext dbContext,
+            IMatchRepository matchRepository,
+            IMatchDependencyRepository matchDependencyRepository,
+            IDrawRepository drawRepository)
         {
             _dbContext = dbContext;
             _matchRepository = matchRepository;
             _matchDependencyRepository = matchDependencyRepository;
+            _drawRepository = drawRepository;
         }
 
         public Match Create(Match match)
@@ -121,15 +126,26 @@ namespace TournamentProj.Services.MatchService
         }
         
         private void ByeMatchNowHasOpponent(Match match)
-        {//TODO do so player wins with 11-0 over bye
+        {
+            //Find the corresponding draw to find the scoring system
+            Draw draw = _drawRepository.FindById(match.DrawId);
+
             //Opponent automatically wins the match and match is finished
             if (match.P1Id == -1)
             { //If P1 was the bye
                 match.P1Won = false;
+                match.P2Match = 1;
+                match.P2Games = draw.Games;
+                match.P2Sets = draw.Sets;
+                match.P2Points = draw.Points;
             }
             else
             { //If P2 was the bye
                 match.P1Won = true;
+                match.P1Match = 1;
+                match.P1Games = draw.Games;
+                match.P1Sets = draw.Sets;
+                match.P1Points = draw.Points;
             }
             
             MatchFinished(match);
