@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TournamentProj.DAL;
+using TournamentProj.DAL.MatchDependencyRepository;
 using TournamentProj.Exceptions;
 using TournamentProj.Model;
 
@@ -8,15 +10,19 @@ namespace TournamentProj.Services.DrawService
 {
     public static class DrawCreator
     {
-        public static Draw GenerateDraw(DrawCreation drawCreation)
+        public static Draw GenerateDraw(DrawCreation drawCreation,
+            IDrawRepository drawRepository,
+            IMatchRepository matchRepository,
+            IMatchDependencyRepository matchDependencyRepository)
         {
             //TODO add logic here for recognizing specific score types, e.g. tennis, squash so on 
-            Draw draw = new Draw();
+            var draw = new Draw();
+            drawRepository.Insert(draw);
 
             switch (drawCreation.DrawType)
             {
                 case DrawType.KO:
-                    ConfigureKO(draw,drawCreation);
+                    ConfigureKO(draw,drawCreation,matchRepository,matchDependencyRepository);
                     break;
                 case DrawType.RR:
                     ConfigureRR(draw, drawCreation);
@@ -61,13 +67,14 @@ namespace TournamentProj.Services.DrawService
                         Status = Status.OPEN
                     };
                     matches.Add(match);
+                    
                 }
             }
 
             draw.Matches = matches;
         }
 
-        private static void ConfigureKO(Draw draw, DrawCreation drawCreation)
+        private static void ConfigureKO(Draw draw, DrawCreation drawCreation, IMatchRepository matchRepository, IMatchDependencyRepository matchDependencyRepository)
         {
             var matches = new List<Match>();
             
@@ -82,7 +89,7 @@ namespace TournamentProj.Services.DrawService
 
             int lastRound = Math.ILogB(seededPlayerIds.Count);
             int roundSize = seededPlayerIds.Count / 2;
-            //Configure first round manually - no match dependencies
+            //Configure first round manually - no match dependencies - matches are open
             var opponents = seededPlayerIds.Skip(seededPlayerIds.Count / 2).ToList();
             opponents = Randomize(opponents);
 
@@ -93,26 +100,66 @@ namespace TournamentProj.Services.DrawService
                     Draw = draw,
                     DrawId = draw.Id,
                     P1Id = seededPlayerIds[i],
-                    P2Id = opponents[0]
+                    P2Id = opponents[0],
+                    Status = Status.OPEN
                 };
                 //Remove that opponent
                 opponents.Remove(opponents[0]);
+                matchRepository.Insert(match); //Insert in database to get an id
                 matches.Add(match);
             }
             
             
-            
-
             //Configure next rounds with match dependencies
             for (var round = 2; round <= lastRound; round++)
             {
+                //Update roundSize: In round i, there are half as many mathces as in i-1
+                var oldRoundSize = roundSize;
+                roundSize = oldRoundSize / 2;
+      
+                
+                //Matches from last round - this is where the dependencies will come from
+                var lastRoundMatchIds = matches.Skip(matches.Count - oldRoundSize).Select(m => m.Id).ToList();
+                
+                //Last half of the lastRoundMatches ==> the ones that are "unseeded" in this round
+                var opponentMatchIds = lastRoundMatchIds.Skip(oldRoundSize / 2).ToList();
+                opponentMatchIds = Randomize(opponentMatchIds);
+
+                //Add roundsize new matches for this round
+                for (int i = 0; i < roundSize; i++)
+                {
+                    //Create the matchDependencies
+                    var p1Dependency = new MatchDependency()
+                    {
+                        DependencyId = lastRoundMatchIds[i], //Player 1 will come from match with higher seeded player
+                        DependsOnDraw = false,
+                        Position = 1
+                    };
+                    matchDependencyRepository.Insert(p1Dependency);
+                    var p2Dependency = new MatchDependency()
+                    {
+                        DependencyId = opponentMatchIds[0], //Player 2 will be selected at random from opponents
+                        DependsOnDraw = false,
+                        Position = 1
+                    };
+                    matchDependencyRepository.Insert(p2Dependency);
+                    
+                    var match = new Match()
+                    {
+                        Draw = draw,
+                        DrawId = draw.Id,
+                        P1DependencyId = p1Dependency.Id,
+                        P2DependencyId = p2Dependency.Id,
+                        Status = Status.CLOSED
+                    };
+                    //Remove the selected opponent-match-id
+                    opponentMatchIds.Remove(opponentMatchIds[0]);
+                    matchRepository.Insert(match); //Insert in database to get an id
+                    matches.Add(match);
+                }
                 
             }
             
-            
-            
-            
-
             draw.Matches = matches;
         }
 

@@ -44,6 +44,5 @@ namespace TournamentProj.Model
         
         public int P2DependencyId { get; set; }
         
-        
     }
 }
