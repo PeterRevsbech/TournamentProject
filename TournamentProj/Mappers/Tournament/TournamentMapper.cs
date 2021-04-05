@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TournamentProj.DTO;
 using TournamentProj.DTO.Player;
 using TournamentProj.DTO.Tournament;
@@ -14,7 +15,7 @@ namespace TournamentProj.Mappers
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                CreationDate = dto.CreationDate,
+                CreationDate = dto.CreationDate.Equals(DateTime.MinValue) ? DateTime.Now :dto.CreationDate,
                 StartDate = dto.StartDate
 
             };
