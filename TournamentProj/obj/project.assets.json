@@ -1125,11 +1125,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\peter\\RiderProjects\\TournamentProject\\TournamentProj\\TournamentProj.csproj",
+      "projectUniqueName": "C:\\Users\\peter\\RiderProjects\\TournamentProjectWithIgnore\\TournamentProj\\TournamentProj.csproj",
       "projectName": "TournamentProj",
-      "projectPath": "C:\\Users\\peter\\RiderProjects\\TournamentProject\\TournamentProj\\TournamentProj.csproj",
+      "projectPath": "C:\\Users\\peter\\RiderProjects\\TournamentProjectWithIgnore\\TournamentProj\\TournamentProj.csproj",
       "packagesPath": "C:\\Users\\peter\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\peter\\RiderProjects\\TournamentProject\\TournamentProj\\obj\\",
+      "outputPath": "C:\\Users\\peter\\RiderProjects\\TournamentProjectWithIgnore\\TournamentProj\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\peter\\AppData\\Roaming\\NuGet\\NuGet.Config",
