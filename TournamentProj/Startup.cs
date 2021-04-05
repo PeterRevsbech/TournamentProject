@@ -21,10 +21,10 @@ namespace TournamentProj
 {
     public class Startup
     {
+        private readonly string _myAllowSpecificOrigins = "MyAllow";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            
         }
 
         public IConfiguration Configuration { get; }
@@ -32,6 +32,17 @@ namespace TournamentProj
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: _myAllowSpecificOrigins, builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000","https://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        ;
+                });
+            });
+            
             services.AddDbContext<TournamentContext>(opt =>
                 opt.UseInMemoryDatabase("Tournament"));
             
@@ -68,15 +79,6 @@ namespace TournamentProj
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TournamentProj", Version = "v1"});
             });
 
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:3000/","http://localhost:5001/");
-                    });
-            });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +94,8 @@ namespace TournamentProj
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseCors(_myAllowSpecificOrigins);
 
             app.UseAuthorization();
 
@@ -99,9 +103,6 @@ namespace TournamentProj
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCors();
-
         }
     }
 }
