@@ -37,7 +37,7 @@ namespace TournamentProj.Services.DrawService
         {
             var generatedDraw = DrawCreator.GenerateDraw(drawCreation,_drawRepository,_matchRepository,_matchDependencyRepository);
             Create(generatedDraw);
-            UpdateAllByeMatches(generatedDraw);
+            //UpdateAllByeMatches(generatedDraw); TODO fix CORS issue with this 
             return generatedDraw;
         }
 
@@ -80,7 +80,7 @@ namespace TournamentProj.Services.DrawService
                     
                     
                     //Update players in matches that depend on this one
-                    var dependentMatches = draw.Matches
+                    var dependentMatches = draw.Matches //TODO FIX CORS ERROR HERE
                         .Where(m => (
                             _matchDependencyRepository.FindById(m.P1DependencyId).DependencyId == match.Id 
                             || _matchDependencyRepository.FindById(m.P2DependencyId).DependencyId == match.Id));

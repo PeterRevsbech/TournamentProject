@@ -15,5 +15,5 @@
         public bool DependsOnDraw { get; set; }
         
         public int Position{ get; set; }
-    }
+       }
 }

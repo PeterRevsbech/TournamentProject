@@ -41,6 +41,7 @@ namespace TournamentProj.Services.DrawService
             draw.DrawType = drawCreation.DrawType;
             draw.TieBreaks = drawCreation.TieBreaks;
             
+            drawRepository.Update(draw);
             return draw;
         }
 
