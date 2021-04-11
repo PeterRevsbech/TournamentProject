@@ -65,7 +65,8 @@ namespace TournamentProj.Services.DrawService
                     {
                         P1Id = playerIds[i],
                         P2Id = playerIds[j],
-                        Status = Status.OPEN
+                        Status = Status.OPEN,
+                        round = 1
                     };
                     matches.Add(match);
                     
@@ -105,7 +106,8 @@ namespace TournamentProj.Services.DrawService
                     DrawId = draw.Id,
                     P1Id = seededPlayerIds[i],
                     P2Id = opponents[0],
-                    Status = Status.OPEN
+                    Status = Status.OPEN,
+                    round = 1
                 };
                 //Remove that opponent
                 opponents.Remove(opponents[0]);
@@ -154,7 +156,8 @@ namespace TournamentProj.Services.DrawService
                         DrawId = draw.Id,
                         P1DependencyId = p1Dependency.Id,
                         P2DependencyId = p2Dependency.Id,
-                        Status = Status.CLOSED
+                        Status = Status.CLOSED,
+                        round = round
                     };
                     //Remove the selected opponent-match-id
                     opponentMatchIds.Remove(opponentMatchIds[0]);

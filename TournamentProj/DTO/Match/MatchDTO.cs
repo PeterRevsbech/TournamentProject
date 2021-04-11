@@ -11,11 +11,10 @@ namespace TournamentProj.DTO.Match
     public class MatchDTO
     {
         public int Id { get; set; }
-        
-        public int DrawId { get; set; }
         public int P1Id { get; set; }
         public int P2Id { get; set; }
-        
+        public int round { get; set; }
+        public int DrawId { get; set; }
         public StatusDTO statusDTO { get; set; }
         public bool P1Won { get; set; }
         public int P1Match { get; set; }
@@ -26,9 +25,7 @@ namespace TournamentProj.DTO.Match
         public int P2Sets { get; set; }
         public int P2Games { get; set; }
         public int P2Points { get; set; }
-        
         public int P1DependencyId { get; set; }
-        
         public int P2DependencyId { get; set; }
     }
 }

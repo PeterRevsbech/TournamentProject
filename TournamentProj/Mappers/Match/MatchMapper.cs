@@ -25,7 +25,8 @@ namespace TournamentProj.Mappers
                 P2Sets = dto.P2Sets,
                 P2Points = dto.P2Points,
                 P1DependencyId = dto.P1DependencyId,
-                P2DependencyId = dto.P2DependencyId
+                P2DependencyId = dto.P2DependencyId,
+                round = dto.round
             };
 
             return match;
@@ -50,7 +51,8 @@ namespace TournamentProj.Mappers
                 P2Sets = match.P2Sets,
                 P2Points = match.P2Points,
                 P1DependencyId = match.P1DependencyId,
-                P2DependencyId = match.P2DependencyId
+                P2DependencyId = match.P2DependencyId,
+                round = match.round
             };
 
             return dto;

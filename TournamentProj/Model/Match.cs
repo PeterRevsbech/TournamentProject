@@ -26,6 +26,8 @@ namespace TournamentProj.Model
         [Required]
         public int P2Id { get; set; }
         
+        public int round { get; set; }
+        
         public Status Status { get; set; }
         
         public bool P1Won { get; set; }
