@@ -137,7 +137,16 @@ namespace TournamentProj.Services.MatchService
                 match.P2Match = 1;
                 match.P2Games = draw.Games;
                 match.P2Sets = draw.Sets;
-                match.P2Points = draw.Points;
+                
+                //Calculate number of games (if sets are in use - number of sets)
+                int gameSets = draw.Sets == 0 ? draw.Games : draw.Games * draw.Sets;
+                
+                //Fill points array with max points for all games
+                match.P2PointsArray = new int[gameSets];
+                for (int i = 0; i < gameSets; i++)
+                {
+                    match.P2PointsArray[i] = draw.Points;
+                }
             }
             else
             { //If P2 was the bye
@@ -145,7 +154,16 @@ namespace TournamentProj.Services.MatchService
                 match.P1Match = 1;
                 match.P1Games = draw.Games;
                 match.P1Sets = draw.Sets;
-                match.P1Points = draw.Points;
+                
+                //Calculate number of games (if sets are in use - number of sets)
+                int gameSets = draw.Sets == 0 ? draw.Games : draw.Games * draw.Sets;
+                
+                //Fill points array with max points for all games
+                match.P1PointsArray = new int[gameSets];
+                for (int i = 0; i < gameSets; i++)
+                {
+                    match.P1PointsArray[i] = draw.Points;
+                }
             }
             
             MatchFinished(match);

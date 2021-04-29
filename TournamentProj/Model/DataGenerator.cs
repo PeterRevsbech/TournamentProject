@@ -14,7 +14,8 @@ namespace TournamentProj.Model
         using (var context = new TournamentContext(
             serviceProvider.GetRequiredService<DbContextOptions<TournamentContext>>()))
         {
-            // Look for any board games.
+            return;
+            // Look for any tournaments
             if (context.Tournaments.Any())
             {
                 return;   // Data was already seeded

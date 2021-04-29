@@ -1,5 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace TournamentProj.Model
 {
@@ -35,12 +39,43 @@ namespace TournamentProj.Model
         public int P1Match { get; set; }
         public int P1Games { get; set; }
         public int P1Sets { get; set; }
-        
-        public int P1Points { get; set; }
         public int P2Match { get; set; }
         public int P2Games { get; set; }
         public int P2Sets { get; set; }
-        public int P2Points { get; set; }
+        
+        [NotMapped]
+        public int[] P2PointsArray
+        {
+            get
+            {
+                string[] tab = InternalP2PointsArray.Split(',');
+                return Array.ConvertAll(InternalP2PointsArray.Split(';'), int.Parse);
+            }
+            set
+            {
+                var data = value;
+                InternalP2PointsArray = String.Join(";", data.Select(p => p.ToString()).ToArray());
+            }
+        }
+
+        public string InternalP2PointsArray { get; set; }
+        
+        [NotMapped]
+        public int[] P1PointsArray
+        {
+            get
+            {
+                string[] tab = InternalP1PointsArray.Split(',');
+                return Array.ConvertAll(InternalP1PointsArray.Split(';'), int.Parse);
+            }
+            set
+            {
+                var data = value;
+                InternalP1PointsArray = String.Join(";", data.Select(p => p.ToString()).ToArray());
+            }
+        }
+
+        public string InternalP1PointsArray { get; set; }
 
         public int P1DependencyId { get; set; }
         
