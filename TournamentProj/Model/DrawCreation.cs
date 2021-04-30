@@ -22,6 +22,15 @@ namespace TournamentProj.Model
         
         //Holds prioritized list of players corresponding to their seedings
         //Doesn't have to contain all players - just top seeds
-        public List<int> playerIdsSeeded { get; set; } 
+        public List<int> playerIdsSeeded { get; set; }
+
+        public int[] InitPoints()
+        {
+            int gameSets = Sets == 0 ? Games : Games * Sets;
+            var points = new int[gameSets];
+            return points;
+        }
+
+    
     }
 }

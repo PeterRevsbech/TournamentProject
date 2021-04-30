@@ -61,15 +61,8 @@ namespace TournamentProj.Services.DrawService
             {
                 for (int j = i+1; j < playerIds.Length; j++)
                 {
-                    Match match = new Match()
-                    {
-                        P1Id = playerIds[i],
-                        P2Id = playerIds[j],
-                        Status = Status.OPEN,
-                        round = 1
-                    };
+                    var match = initMatch(draw, null, null, playerIds[i], playerIds[j], Status.OPEN, 1, drawCreation);
                     matches.Add(match);
-                    
                 }
             }
 
@@ -100,15 +93,9 @@ namespace TournamentProj.Services.DrawService
 
             for (int i = 0; i < roundSize; i++)
             {
-                var match = new Match()
-                {
-                    Draw = draw,
-                    DrawId = draw.Id,
-                    P1Id = seededPlayerIds[i],
-                    P2Id = opponents[0],
-                    Status = Status.OPEN,
-                    round = 1
-                };
+                //Init first round match
+                var match = initMatch(draw, null, null,seededPlayerIds[i],opponents[0], Status.OPEN, 1, drawCreation);
+                
                 //Remove that opponent
                 opponents.Remove(opponents[0]);
                 matchRepository.Insert(match); //Insert in database to get an id
@@ -149,22 +136,15 @@ namespace TournamentProj.Services.DrawService
                         Position = 1
                     };
                     matchDependencyRepository.Insert(p2Dependency);
+
+
+                    var match = initMatch(draw, p1Dependency, p2Dependency, 0, 0,  Status.CLOSED, round, drawCreation);
                     
-                    var match = new Match()
-                    {
-                        Draw = draw,
-                        DrawId = draw.Id,
-                        P1DependencyId = p1Dependency.Id,
-                        P2DependencyId = p2Dependency.Id,
-                        Status = Status.CLOSED,
-                        round = round
-                    };
                     //Remove the selected opponent-match-id
                     opponentMatchIds.Remove(opponentMatchIds[0]);
                     matchRepository.Insert(match); //Insert in database to get an id
                     matches.Add(match);
                 }
-                
             }
             
             draw.Matches = matches;
@@ -245,5 +225,30 @@ namespace TournamentProj.Services.DrawService
             return true;
         }
         
+        private static Match initMatch(Draw draw, MatchDependency p1Dependency, MatchDependency p2Dependency,int p1Id, int p2Id, Status status, int round, DrawCreation drawCreation){
+            var match = new Match()
+            {
+                Draw = draw,
+                DrawId = draw.Id,
+                P1DependencyId = p1Dependency == null ? 0: p1Dependency.Id,
+                P2DependencyId = p2Dependency == null ? 0: p2Dependency.Id,
+                P1Id = p1Id,
+                P2Id = p2Id,
+                Status = status,
+                round = round,
+                P1Match = 0,
+                P2Match = 0,
+                P1Games = 0,
+                P2Games = 0,
+                P1Sets = 0,
+                P2Sets = 0,
+                P1PointsArray = drawCreation.InitPoints(),
+                P2PointsArray = drawCreation.InitPoints()
+            };
+            return match;
+        }
+        
     }
+    
+    
 }

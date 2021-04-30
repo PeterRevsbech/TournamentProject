@@ -39,7 +39,7 @@ namespace TournamentProj.Model
         public int P1Match { get; set; }
         public int P1Games { get; set; }
         public int P1Sets { get; set; }
-        public int P2Match { get; set; }
+            public int P2Match { get; set; }
         public int P2Games { get; set; }
         public int P2Sets { get; set; }
         
