@@ -85,9 +85,7 @@ namespace TournamentProj.Controllers
         [HttpPut]
         public IActionResult Put(MatchReportDTO matchReportDTO)
         {
-            var input = _mapper.FromDTO(dto);
-
-            var result = _matchService.Update(input);
+            var result = _matchService.UpdateScoreReport(matchReportDTO);
             return Ok(_mapper.ToDTO(result));
         }
         
