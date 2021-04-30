@@ -81,6 +81,16 @@ namespace TournamentProj.Controllers
         }
         
         
+        [Route("Report")]
+        [HttpPut]
+        public IActionResult Put(MatchReportDTO matchReportDTO)
+        {
+            var input = _mapper.FromDTO(dto);
+
+            var result = _matchService.Update(input);
+            return Ok(_mapper.ToDTO(result));
+        }
+        
         [Route("{id:int}")]
         [HttpDelete]
         public IActionResult Delete(int id)
