@@ -36,8 +36,8 @@ namespace TournamentProj.Services.DrawService
         public Draw CreateAutomatic(DrawCreation drawCreation)
         {
             var generatedDraw = DrawCreator.GenerateDraw(drawCreation,_drawRepository,_matchRepository,_matchDependencyRepository);
+            UpdateAllByeMatches(generatedDraw); //TODO fix CORS issue with this 
             Create(generatedDraw);
-            //UpdateAllByeMatches(generatedDraw); TODO fix CORS issue with this 
             return generatedDraw;
         }
 
@@ -72,6 +72,14 @@ namespace TournamentProj.Services.DrawService
             //Go through all mathces
             foreach (var match in draw.Matches)
             {
+                if (match.P1Id == Player.BYE_ID || match.P2Id == Player.BYE_ID)
+                {
+                    ExecuteByeMatch(draw,match);
+                    //_matchRepository.Update(match);
+                }
+                
+                
+                /*
                 //If match contains a bye
                 if (match.P1Id == -1 || match.P2Id == -1)
                 {
@@ -97,14 +105,115 @@ namespace TournamentProj.Services.DrawService
                         else
                         {
                             matchDependency = _matchDependencyRepository.FindById(dependentMatch.P2DependencyId);
-                            dependentMatch.P2Id = FindResultingPlayerFromMatchDepdendency(matchDependency);
+                            dependentMatch.P2Id = FindResultingPlayerFromMatchDependency(matchDependency);
                         }
                     }
                 } 
+                */
             }
         }
 
-        private int FindResultingPlayerFromMatchDepdendency(MatchDependency matchDependency)
+        //-----------------------------------------------------------------------------------------------------
+        //The following methods are copied from MatchService to avoid bad dependencies
+        private void ExecuteByeMatch(Draw draw, Match match)
+        {
+            var maxGames = draw.Sets == 0 ? draw.Games : draw.Sets * draw.Games;
+            var minGames = (1 + maxGames) / 2;
+
+            //Opponent automatically wins the match and match is finished
+            if (match.P1Id == -1)
+            {
+                //If P1 was the bye
+                match.P1Won = false;
+                match.P2Games = minGames;
+                match.P2Sets = draw.Sets;
+
+
+                //Fill points array with max points for minimal number of games
+                var arr1 = new int[minGames];
+                var arr2 = new int[minGames];
+                
+                for (int i = 0; i < minGames; i++)
+                {
+                    arr1[i] = draw.Points;
+                    arr2[i] = 0;
+                }
+
+                match.P1PointsArray = arr1;
+                match.P2PointsArray = arr2;
+            }
+            else
+            {
+                //If P2 was the bye
+                match.P1Won = true;
+                match.P1Games = minGames;
+                match.P1Sets = draw.Sets;
+
+                //Fill points array with max points for minimal number of games
+                var arr1 = new int[minGames];
+                var arr2 = new int[minGames];
+                
+                for (int i = 0; i < minGames; i++)
+                {
+                    arr1[i] = draw.Points;
+                    arr2[i] = 0;
+                }
+
+                match.P1PointsArray = arr1;
+                match.P2PointsArray = arr2;
+            }
+
+            //Update the status of the match
+            match.UpdateStatus();
+
+            MatchFinished(match);
+            
+            _matchRepository.Update(match);
+        }
+        
+        private void MatchFinished(Match match)
+        {
+            //Match has been updated and is now Finished.
+            //If any other matches are dependent on the result of this match - they should be updated
+            var dependentMatches = _matchRepository
+                .FindByDrawId(match.DrawId)
+                .ToArray()
+                .Where(m => (
+                    (m.P1DependencyId != 0 && _matchDependencyRepository.FindById(m.P1DependencyId).DependencyId == match.Id)
+                    || (m.P2DependencyId != 0 && _matchDependencyRepository.FindById(m.P2DependencyId).DependencyId == match.Id))
+                )
+                .ToArray();
+            
+            
+            
+            //For each dependent match - update the players
+            foreach (var dependentMatch in dependentMatches)
+            {
+                //Find the id's of the matches, that the matchDependencies point to
+                var p1DepId = dependentMatch.P1DependencyId != 0 ?_matchDependencyRepository.FindById(dependentMatch.P1DependencyId).DependencyId : 0;
+                var p2DepId = dependentMatch.P2DependencyId != 0 ?_matchDependencyRepository.FindById(dependentMatch.P2DependencyId).DependencyId : 0;
+                
+                MatchDependency matchDependency;
+                if (p1DepId == match.Id)
+                {
+                    matchDependency = _matchDependencyRepository.FindById(dependentMatch.P1DependencyId);
+                    dependentMatch.P1Id = FindResultingPlayerFromMatchDependency(matchDependency);
+                }
+                else if (p2DepId == match.Id)
+                {
+                    matchDependency = _matchDependencyRepository.FindById(dependentMatch.P2DependencyId);
+                    dependentMatch.P2Id = FindResultingPlayerFromMatchDependency(matchDependency);
+                }
+
+                //Update status
+                dependentMatch.UpdateStatus();
+                
+                //Save to repo
+                _matchRepository.Update(dependentMatch);
+            }
+        }
+
+        private int FindResultingPlayerFromMatchDependency(MatchDependency matchDependency)
         {
             var match = _matchRepository.FindById(matchDependency.DependencyId);
             var wantedPosition = matchDependency.Position;
@@ -117,8 +226,7 @@ namespace TournamentProj.Services.DrawService
                 return match.P2Id;
             }
         }
-        
-        
-        
+
+
     }
 }

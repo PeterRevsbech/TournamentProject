@@ -14,7 +14,6 @@ namespace TournamentProj.Model
         using (var context = new TournamentContext(
             serviceProvider.GetRequiredService<DbContextOptions<TournamentContext>>()))
         {
-            return;
             // Look for any tournaments
             if (context.Tournaments.Any())
             {
@@ -29,6 +28,7 @@ namespace TournamentProj.Model
                     CreationDate = DateTime.Now,
                     StartDate = DateTime.Today,
                     Draws = new List<Draw>()
+                    /*
                     {
                         new ()
                         {
@@ -73,6 +73,8 @@ namespace TournamentProj.Model
                             Matches = new List<Match>()
                         }
                     },
+                    */
+                    ,
                     Players = new List<Player>()
                     {
                         new Player()
@@ -92,6 +94,7 @@ namespace TournamentProj.Model
                             Id = 17,
                             Name = "Sebastian Brinker",
                         }
+                        /*
                         ,
                         new Player()
                         {
@@ -110,9 +113,11 @@ namespace TournamentProj.Model
                             Id = 20,
                             Name = "James Wilstrop",
                         }
+                        */
                     
                     }
-                },
+                }
+                /*,
                 new Tournament
                 {
                     Id = 2,
@@ -127,7 +132,8 @@ namespace TournamentProj.Model
                     CreationDate = DateTime.Now,
                     StartDate = DateTime.Today
                 });
-            
+                */
+            /*
             context.Draws.AddRange(
                 new Draw()
                 {
@@ -176,8 +182,10 @@ namespace TournamentProj.Model
                     TournamentId = 3,
                     Matches = new List<Match>()
                 }
+                */
             );
 
+            /*
             context.Players.AddRange(
                 new Player()
                 {
@@ -186,7 +194,7 @@ namespace TournamentProj.Model
                 }
                 
             );
-
+            */
             
             
             context.SaveChanges();

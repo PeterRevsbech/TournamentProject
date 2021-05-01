@@ -236,8 +236,6 @@ namespace TournamentProj.Services.DrawService
                 P2Id = p2Id,
                 Status = status,
                 round = round,
-                P1Match = 0,
-                P2Match = 0,
                 P1Games = 0,
                 P2Games = 0,
                 P1Sets = 0,

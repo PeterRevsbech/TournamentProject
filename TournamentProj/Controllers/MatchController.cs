@@ -76,7 +76,7 @@ namespace TournamentProj.Controllers
         {
             var input = _mapper.FromDTO(dto);
 
-            var result = _matchService.Update(input);
+            var result = _matchService.Update(input,null);
             return Ok(_mapper.ToDTO(result));
         }
         

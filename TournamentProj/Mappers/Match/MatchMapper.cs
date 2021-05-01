@@ -16,11 +16,9 @@ namespace TournamentProj.Mappers
                 P2Id = dto.P2Id,
                 Status = DTOToModelStatus(dto.statusDTO),
                 P1Won = dto.P1Won,
-                P1Match = dto.P1Match,
                 P1Games = dto.P1Games,
                 P1Sets = dto.P1Sets,
                 P1PointsArray = dto.P1Points,
-                P2Match = dto.P2Match,
                 P2Games = dto.P2Games,
                 P2Sets = dto.P2Sets,
                 P2PointsArray = dto.P2Points,
@@ -42,11 +40,9 @@ namespace TournamentProj.Mappers
                 P2Id = match.P2Id,
                 statusDTO = ModelStatusToDTO(match.Status),
                 P1Won = match.P1Won,
-                P1Match = match.P1Match,
                 P1Games = match.P1Games,
                 P1Sets = match.P1Sets,
                 P1Points = match.P1PointsArray,
-                P2Match = match.P2Match,
                 P2Games = match.P2Games,
                 P2Sets = match.P2Sets,
                 P2Points = match.P2PointsArray,
@@ -100,4 +96,6 @@ namespace TournamentProj.Mappers
             }
         }
     }
+    
+    
 }

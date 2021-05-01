@@ -36,10 +36,8 @@ namespace TournamentProj.Model
         
         public bool P1Won { get; set; }
         
-        public int P1Match { get; set; }
         public int P1Games { get; set; }
         public int P1Sets { get; set; }
-            public int P2Match { get; set; }
         public int P2Games { get; set; }
         public int P2Sets { get; set; }
         
@@ -80,6 +78,45 @@ namespace TournamentProj.Model
         public int P1DependencyId { get; set; }
         
         public int P2DependencyId { get; set; }
+        
+        public static Match Clone(Match match)
+        {
+            return new ()
+            {
+                Id = match.Id,
+                DrawId = match.DrawId,
+                P1Id = match.P1Id,
+                P2Id = match.P2Id,
+                Status = match.Status,
+                P1Won = match.P1Won,
+                P1Games = match.P1Games,
+                P1Sets = match.P1Sets,
+                P1PointsArray = match.P1PointsArray,
+                P2Games = match.P2Games,
+                P2Sets = match.P2Sets,
+                P2PointsArray = match.P2PointsArray,
+                P1DependencyId = match.P1DependencyId,
+                P2DependencyId = match.P2DependencyId,
+                round = match.round
+            };
+        }
+
+        public void UpdateStatus()
+        {
+            //Set correct status of match
+            if (P1Id == 0 || P2Id == 0)
+            { //If one of the players is not yet known
+                Status = Status.CLOSED;
+            } 
+            else if (P1Games == 0 && P2Games == 0)
+            { //If points have not yet been reported
+                Status = Status.OPEN;
+            }
+            else
+            { //If points have been reported correctly
+                Status = Status.FINISHED;
+            }
+        }
         
     }
 }

@@ -19,8 +19,10 @@ namespace TournamentProj.Services.MatchService
         
         Match Delete(int id);
 
-        Match Update(Match match);
+        Match Update(Match match, Match oldMatch);
         Match UpdateScoreReport(MatchReportDTO matchReportDto);
-        
+
+
+
     }
 }

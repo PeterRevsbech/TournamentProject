@@ -63,10 +63,13 @@ namespace TournamentProj.Services.MatchService
             return match;
         }
 
-        public Match Update(Match match)
+        public Match Update(Match match, Match oldMatch)
         {
-            Match oldMatch = _matchRepository.FindById(match.Id);
-            
+            if (oldMatch == null)
+            {
+                oldMatch = _matchRepository.FindById(match.Id);
+            }
+
             if (oldMatch.Status != Status.FINISHED && match.Status == Status.FINISHED)
             { //If match was not finished before, but is now
                 MatchFinished(match);
@@ -76,8 +79,10 @@ namespace TournamentProj.Services.MatchService
                 && (oldMatch.P1Id == 0 || oldMatch.P2Id == 0)
                 && !(match.P1Id == 0 || match.P2Id == 0))
             { //If match has a bye and opponent was not previously known
-                ByeMatchNowHasOpponent(match);
+                ExecuteByeMatch(match);
             }
+            
+            match.UpdateStatus();
             
             _matchRepository.Update(match);
             _dbContext.SaveChanges();
@@ -97,20 +102,31 @@ namespace TournamentProj.Services.MatchService
                     )
                 .ToArray();
             
-            //For each dependent match - update the players
+            //For each dependent match - update the players and the status
             foreach (var dependentMatch in dependentMatches)
             {
+                //Find the id's of the matches, that the matchDependencies point to
+                var p1DepId = dependentMatch.P1DependencyId != 0 ?_matchDependencyRepository.FindById(dependentMatch.P1DependencyId).DependencyId : 0;
+                var p2DepId = dependentMatch.P2DependencyId != 0 ?_matchDependencyRepository.FindById(dependentMatch.P2DependencyId).DependencyId : 0;
+                
                 MatchDependency matchDependency;
-                if (dependentMatch.P1DependencyId == match.Id)
+                if (p1DepId == match.Id)
                 {
                     matchDependency = _matchDependencyRepository.FindById(dependentMatch.P1DependencyId);
                     dependentMatch.P1Id = FindResultingPlayerFromMatchDependency(matchDependency);
                 }
-                else
+                else if (p2DepId == match.Id)
                 {
                     matchDependency = _matchDependencyRepository.FindById(dependentMatch.P2DependencyId);
                     dependentMatch.P2Id = FindResultingPlayerFromMatchDependency(matchDependency);
                 }
+                
+                //Update status
+                dependentMatch.UpdateStatus();
+                
+                //Save to repo
+                _matchRepository.Update(dependentMatch);
+
             }
         }
 
@@ -128,54 +144,69 @@ namespace TournamentProj.Services.MatchService
             }
         }
         
-        private void ByeMatchNowHasOpponent(Match match)
+        private void ExecuteByeMatch(Match match)
         {
             //Find the corresponding draw to find the scoring system
-            Draw draw = _drawRepository.FindById(match.DrawId);
+            var draw = _drawRepository.FindById(match.DrawId);
+            var maxGames = draw.Sets == 0 ? draw.Games : draw.Sets * draw.Games;
+            var minGames = (1 + maxGames) / 2;
 
             //Opponent automatically wins the match and match is finished
             if (match.P1Id == -1)
-            { //If P1 was the bye
+            {
+                //If P1 was the bye
                 match.P1Won = false;
-                match.P2Match = 1;
-                match.P2Games = draw.Games;
+                match.P2Games = minGames;
                 match.P2Sets = draw.Sets;
+
+
+                //Fill points array with max points for minimal number of games
+                var arr1 = new int[minGames];
+                var arr2 = new int[minGames];
                 
-                //Calculate number of games (if sets are in use - number of sets)
-                int gameSets = draw.Sets == 0 ? draw.Games : draw.Games * draw.Sets;
-                
-                //Fill points array with max points for all games
-                match.P2PointsArray = new int[gameSets];
-                for (int i = 0; i < gameSets; i++)
+                for (int i = 0; i < minGames; i++)
                 {
-                    match.P2PointsArray[i] = draw.Points;
+                    arr1[i] = draw.Points;
+                    arr2[i] = 0;
                 }
+
+                match.P1PointsArray = arr1;
+                match.P2PointsArray = arr2;
             }
             else
-            { //If P2 was the bye
+            {
+                //If P2 was the bye
                 match.P1Won = true;
-                match.P1Match = 1;
-                match.P1Games = draw.Games;
+                match.P1Games = minGames;
                 match.P1Sets = draw.Sets;
+
+                //Fill points array with max points for minimal number of games
+                var arr1 = new int[minGames];
+                var arr2 = new int[minGames];
                 
-                //Calculate number of games (if sets are in use - number of sets)
-                int gameSets = draw.Sets == 0 ? draw.Games : draw.Games * draw.Sets;
-                
-                //Fill points array with max points for all games
-                match.P1PointsArray = new int[gameSets];
-                for (int i = 0; i < gameSets; i++)
+                for (var i = 0; i < minGames; i++)
                 {
-                    match.P1PointsArray[i] = draw.Points;
+                    arr1[i] = draw.Points;
+                    arr2[i] = 0;
                 }
+
+                match.P1PointsArray = arr1;
+                match.P2PointsArray = arr2;
             }
-            
+
+            //Update the status of the match
+            match.UpdateStatus();
+
             MatchFinished(match);
+            
+            _matchRepository.Update(match);
         }
 
         public Match UpdateScoreReport(MatchReportDTO matchReportDto)
         {
             //Find the corresponding match
             var match  = _matchRepository.FindById(matchReportDto.matchId);
+            var oldMatch = Match.Clone(match);
             var draw = _drawRepository.FindById(match.DrawId);
             
             //Format the string and check for errors
@@ -212,7 +243,7 @@ namespace TournamentProj.Services.MatchService
                     $"allowed in draw with up to {draw.Sets} sets and {draw.Games} games.");
             }
             //Too few sets
-            if (validSetCount < minSets || draw.Sets!=0) //This lower bound only holds, if not using sets (only games)
+            if (validSetCount < minSets && draw.Sets!=0) //This lower bound only holds, if not using sets (only games)
             {
                 throw new TournamentSoftwareException(
                     $"{validSetCount} valid sets in score-string {matchReportDto.score}," +
@@ -294,12 +325,10 @@ namespace TournamentProj.Services.MatchService
             match.P2PointsArray = p2Points.ToArray();
             match.P1Games = p1Games;
             match.P2Games = p2Games;
-            match.P1Match = match.P1Won ? 1 : 0;
-            match.P1Match = match.P1Won ? 0 : 1;
             match.Status = Status.FINISHED;
 
             //Update the match using existing Update method and return
-            return Update(match);
+            return Update(match,oldMatch);
 
         }
     }

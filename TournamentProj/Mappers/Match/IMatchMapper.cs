@@ -8,7 +8,6 @@ namespace TournamentProj.Mappers
     {
         public Match FromDTO(MatchDTO dto);
         public MatchDTO ToDTO(Match draw);
-
         public IEnumerable<MatchDTO> ToDtoArray(IEnumerable<Match> draws);
     }
 }
