@@ -8,6 +8,9 @@ namespace TournamentProj.DAL
         public IEnumerable<Draw> FindAll();
 
         public Draw FindById(int id);
+
+        public IEnumerable<Draw> FindByTournamentId(int tournamentId);
+        
         public void Insert(Draw draw);
         
         public void Delete(int id);

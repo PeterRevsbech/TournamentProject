@@ -31,6 +31,19 @@ namespace TournamentProj.DAL
        
             return result;
         }
+        
+        
+        public IEnumerable<Draw> FindByTournamentId(int tournamentId)
+        {
+            
+            var result= _dbSet.Where(draw => draw.TournamentId == tournamentId)
+                .Include(draw => draw.Matches)
+                .ToArray();
+       
+            return result;
+        }
+        
+        
 
         public void Insert(Draw draw)
         {
