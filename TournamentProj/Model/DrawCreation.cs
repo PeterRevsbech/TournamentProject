@@ -21,7 +21,7 @@ namespace TournamentProj.Model
         public bool TieBreaks { get; set; }
         
         //Holds prioritized list of players corresponding to their seedings
-        //Doesn't have to contain all players - just top seeds
+        //Doesn't have to contain all players - just seeded ones
         public List<int> playerIdsSeeded { get; set; }
 
         public int[] InitPoints()

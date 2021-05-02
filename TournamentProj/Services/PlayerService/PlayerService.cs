@@ -9,19 +9,16 @@ namespace TournamentProj.Services.PlayerService
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository _playerRepository;
-        private readonly IDrawRepository _drawRepository;
         private readonly IMatchRepository _matchRepository;
         private readonly ITournamentContext _dbContext;
 
         public PlayerService(ITournamentContext dbContext,
             IPlayerRepository playerRepository,
-            IDrawRepository drawRepository,
             IMatchRepository matchRepository)
         {
             _dbContext = dbContext;
             _playerRepository = playerRepository;
             _matchRepository = matchRepository;
-            _drawRepository = drawRepository;
         }
 
         
@@ -59,7 +56,7 @@ namespace TournamentProj.Services.PlayerService
             //Get all those players
             var players = new List<Player>();
             
-            foreach (var playerId in playerIds)//TODO do this with LINQ
+            foreach (var playerId in playerIds)
             {
                 players.Add(_playerRepository.FindById(playerId));
             }
@@ -70,6 +67,10 @@ namespace TournamentProj.Services.PlayerService
         public Player Delete(int id)
         {
             var player = _playerRepository.FindById(id);
+            //Check that no draw exists with matches, with this player
+            
+            
+            
             _playerRepository.Delete(player);
             _dbContext.SaveChanges();
             return player;

@@ -17,7 +17,6 @@ namespace TournamentProj.Services.TournamentService
             _dbContext = dbContext;
             _tournamentRepository = tournamentRepository;
         }
-
         
         public Tournament Create(Tournament tournament)
         {
@@ -35,11 +34,6 @@ namespace TournamentProj.Services.TournamentService
         {
             var result = _tournamentRepository.FindAll();
             return result;
-        }
-
-        public IEnumerable<Tournament> GetFromUserId(int userId)
-        {
-            throw new System.NotImplementedException();
         }
 
         public Tournament Delete(int id)

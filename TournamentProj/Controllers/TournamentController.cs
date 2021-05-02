@@ -19,13 +19,11 @@ namespace TournamentProj.Controllers
     public class TournamentController : ControllerBase
     {
 
-        private readonly ILogger<TournamentController> _logger;
         private readonly ITournamentMapper _mapper;
         private readonly ITournamentService _tournamentService;
 
-        public TournamentController(ILogger<TournamentController> logger,ITournamentMapper tournamentMapper, ITournamentService tournamentService)
+        public TournamentController(ITournamentMapper tournamentMapper, ITournamentService tournamentService)
         {
-            _logger = logger;
             _mapper = tournamentMapper;
             _tournamentService = tournamentService;
         }

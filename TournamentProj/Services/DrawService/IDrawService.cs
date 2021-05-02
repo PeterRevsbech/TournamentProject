@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TournamentProj.DTO.Draw;
 using TournamentProj.Model;
 
 namespace TournamentProj.Services.DrawService

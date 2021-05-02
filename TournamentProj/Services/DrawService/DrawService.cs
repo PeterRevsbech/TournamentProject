@@ -35,8 +35,8 @@ namespace TournamentProj.Services.DrawService
 
         public Draw CreateAutomatic(DrawCreation drawCreation)
         {
-            //IMPORTANT: Here it is important to first create the draw using SaveChanges() method ==> THen update the draw using it again
-            var generatedDraw = DrawCreator.GenerateDraw(drawCreation,_drawRepository,_matchRepository,_matchDependencyRepository, _dbContext);
+            // Here it is important to first create the draw using SaveChanges() method ==> THen update the draw using it again
+            var generatedDraw = DrawCreator.GenerateDraw(drawCreation,_drawRepository,_matchRepository,_matchDependencyRepository);
             Create(generatedDraw);
             UpdateAllByeMatches(generatedDraw);
             Update(generatedDraw);
@@ -83,7 +83,7 @@ namespace TournamentProj.Services.DrawService
         }
 
         //-----------------------------------------------------------------------------------------------------
-        //The following methods are copied from MatchService to avoid bad dependencies
+        //The following methods are copied from MatchService to avoid dependencies among services
         private void ExecuteByeMatch(Draw draw, Match match)
         {
             var maxGames = draw.Sets == 0 ? draw.Games : draw.Sets * draw.Games;

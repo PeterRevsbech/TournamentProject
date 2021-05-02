@@ -11,13 +11,11 @@ namespace TournamentProj.Controllers
     [Route("api/MatchDependency")]
     public class MatchDependencyController : ControllerBase
     {
-        private readonly ILogger<MatchDependencyController> _logger;
         private readonly IMatchDependencyMapper _mapper;
         private readonly IMatchDependencyService _matchDependencyService;
 
-        public MatchDependencyController(ILogger<MatchDependencyController> logger, IMatchDependencyMapper matchMapper, IMatchDependencyService matchDependencyService)
+        public MatchDependencyController(IMatchDependencyMapper matchMapper, IMatchDependencyService matchDependencyService)
         {
-            _logger = logger;
             _mapper = matchMapper;
             _matchDependencyService = matchDependencyService;
         }

@@ -14,10 +14,8 @@ namespace TournamentProj.Services.DrawService
         public static Draw GenerateDraw(DrawCreation drawCreation,
             IDrawRepository drawRepository,
             IMatchRepository matchRepository,
-            IMatchDependencyRepository matchDependencyRepository,
-            ITournamentContext dbContext)
+            IMatchDependencyRepository matchDependencyRepository)
         {
-            //TODO add logic here for recognizing specific score types, e.g. tennis, squash so on 
             var draw = new Draw();
             drawRepository.Insert(draw);
 
@@ -31,7 +29,6 @@ namespace TournamentProj.Services.DrawService
                     break;
                 case DrawType.MONRAD:
                     throw new NotImplementedException();
-                    break;
                 default:
                     throw new TournamentSoftwareException("Tried to create a draw with no DrawType specified.");
             }
@@ -153,17 +150,6 @@ namespace TournamentProj.Services.DrawService
             draw.Matches = matches;
         }
 
-        private static void ConfigureMonrad(Draw draw, DrawCreation drawCreation)
-        {
-            var playerIds = drawCreation.playerIds.ToArray();
-            
-            var matches = new List<Match>();
-            
-            
-
-            draw.Matches = matches;
-        }
-
         private static List<int> GetSeededPlayerIds(List<int> playerIds, List<int> seededPlayerIds)
         {
             //If no seedings were made - just randomize and return input
@@ -221,10 +207,8 @@ namespace TournamentProj.Services.DrawService
                 {
                     return false;
                 }
-
                 n /= 2;
             }
-
             return true;
         }
         
@@ -248,8 +232,5 @@ namespace TournamentProj.Services.DrawService
             };
             return match;
         }
-        
     }
-    
-    
 }

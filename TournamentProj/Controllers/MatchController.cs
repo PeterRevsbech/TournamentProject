@@ -1,14 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using TournamentProj.Context;
 using TournamentProj.DTO.Match;
-using TournamentProj.DTO.Player;
 using TournamentProj.Mappers;
-using TournamentProj.Model;
-using TournamentProj.Services;
 using TournamentProj.Services.MatchService;
 
 namespace TournamentProj.Controllers
@@ -17,13 +11,11 @@ namespace TournamentProj.Controllers
     [Route("api/Match")]
     public class MatchController : ControllerBase
     {
-        private readonly ILogger<MatchController> _logger;
         private readonly IMatchMapper _mapper;
         private readonly IMatchService _matchService;
 
-        public MatchController(ILogger<MatchController> logger, IMatchMapper matchMapper, IMatchService matchService)
+        public MatchController(IMatchMapper matchMapper, IMatchService matchService)
         {
-            _logger = logger;
             _mapper = matchMapper;
             _matchService = matchService;
         }

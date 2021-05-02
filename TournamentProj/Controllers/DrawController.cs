@@ -1,14 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using TournamentProj.Context;
+﻿using Microsoft.AspNetCore.Mvc;
 using TournamentProj.DTO.Draw;
-using TournamentProj.DTO.Player;
 using TournamentProj.Mappers;
-using TournamentProj.Services;
 using TournamentProj.Services.DrawService;
 
 namespace TournamentProj.Controllers
@@ -17,13 +9,11 @@ namespace TournamentProj.Controllers
     [Route("api/Draw")]
     public class DrawController : ControllerBase
     {
-        private readonly ILogger<DrawController> _logger;
         private readonly IDrawMapper _mapper;
         private readonly IDrawService _drawService;
 
-        public DrawController(ILogger<DrawController> logger, IDrawService drawService, IDrawMapper drawMapper)
+        public DrawController(IDrawService drawService, IDrawMapper drawMapper)
         {
-            _logger = logger;
             _mapper = drawMapper;
             _drawService = drawService;
         }

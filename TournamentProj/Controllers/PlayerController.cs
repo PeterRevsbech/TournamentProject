@@ -20,14 +20,12 @@ namespace TournamentProj.Controllers
     [Route("api/Player")]
     public class PlayerController : ControllerBase
     {
-        private readonly ILogger<PlayerController> _logger;
         private readonly IPlayerMapper _mapper;
         private readonly IPlayerService _playerService;
 
 
-        public PlayerController(ILogger<PlayerController> logger, IPlayerMapper playerMapper, IPlayerService playerService)
+        public PlayerController(IPlayerMapper playerMapper, IPlayerService playerService)
         {
-            _logger = logger;
             _mapper = playerMapper;
             _playerService = playerService;
         }

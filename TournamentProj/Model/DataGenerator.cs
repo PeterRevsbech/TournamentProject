@@ -17,7 +17,7 @@ namespace TournamentProj.Model
             // Look for any tournaments
             if (context.Tournaments.Any())
             {
-                return;   // Data was already seeded
+                return;// Data was already seeded
             }
 
             context.Tournaments.AddRange(
@@ -27,176 +27,29 @@ namespace TournamentProj.Model
                     Name = "Squash Grand Prix 1",
                     CreationDate = DateTime.Now,
                     StartDate = DateTime.Today,
-                    Draws = new List<Draw>()
-                    /*
-                    {
-                        new ()
-                        {
-                            Id = 10,
-                            TournamentId = 1,
-                            Name = "DU13 Finalerunde",
-                            DrawType = DrawType.RR,
-                            Matches = new List<Match>()
-                            {
-                                new Match()
-                                {
-                                    Id = 50,
-                                    P1Id = 15,
-                                    P2Id = 16,
-                                    Status = Status.CLOSED
-                                }
-                                ,
-                                new Match()
-                                {
-                                    Id = 51,
-                                    P1Id = 15,
-                                    P2Id = 17,
-                                    Status = Status.CLOSED
-                                }
-                                ,
-                                new Match()
-                                {
-                                    Id = 52,
-                                    P1Id = 16,
-                                    P2Id = 17,
-                                    Status = Status.CLOSED
-                                }
-                            }
-                        }
-                        ,
-                        new ()
-                        {
-                            Id = 11,
-                            TournamentId = 1,
-                            Name = "DU13 Puljespl",
-                            DrawType = DrawType.RR,
-                            Matches = new List<Match>()
-                        }
-                    },
-                    */
-                    ,
+                    Draws = new List<Draw>(),
                     Players = new List<Player>()
                     {
-                        new Player()
+                        new ()
                         {
                             Id = 15,
                             Name = "Peter Revsbech",
                         }
                         ,
-                        new Player()
+                        new ()
                         {
                             Id = 16,
                             Name = "Simon Steenholdt",
                         }
                         ,
-                        new Player()
+                        new ()
                         {
                             Id = 17,
                             Name = "Sebastian Brinker",
                         }
-                        /*
-                        ,
-                        new Player()
-                        {
-                        Id = 18,
-                        Name = "Ramy Ashour",
-                        }
-                        ,
-                        new Player()
-                        {
-                            Id = 19,
-                            Name = "Jonathon Power",
-                        }
-                        ,
-                        new Player()
-                        {
-                            Id = 20,
-                            Name = "James Wilstrop",
-                        }
-                        */
-                    
                     }
                 }
-                /*,
-                new Tournament
-                {
-                    Id = 2,
-                    Name = "Squash Grand Prix 2",
-                    CreationDate = DateTime.Now,
-                    StartDate = DateTime.Today
-                },  
-                new Tournament
-                {
-                    Id = 3,
-                    Name = "Pool med vennerne",
-                    CreationDate = DateTime.Now,
-                    StartDate = DateTime.Today
-                });
-                */
-            /*
-            context.Draws.AddRange(
-                new Draw()
-                {
-                    Id = 1,
-                    Name = "DU17 Hovedturnering",
-                    TournamentId = 1,
-                    Matches = new List<Match>()
-                },
-                new Draw()
-                {
-                    Id = 2,
-                    Name = "DU15 Hovedturnering",
-                    TournamentId = 1,
-                    Matches = new List<Match>()
-
-                }
-                ,
-                new Draw()
-                {
-                    Id = 3,
-                    Name = "DU13 Hovedturnering",
-                    TournamentId = 1,
-                    Matches = new List<Match>()
-                }
-                ,
-                new Draw()
-                {
-                    Id = 4,
-                    Name = "PU17 Puljespil",
-                    TournamentId = 2,
-                    Matches = new List<Match>()
-                }
-                ,
-                new Draw()
-                {
-                    Id = 5,
-                    Name = "PU17 Hovedturnering",
-                    TournamentId = 2,
-                    Matches = new List<Match>()
-                }
-                ,
-                new Draw()
-                {
-                    Id = 6,
-                    Name = "Torsdag aften på Bobbys",
-                    TournamentId = 3,
-                    Matches = new List<Match>()
-                }
-                */
             );
-
-            /*
-            context.Players.AddRange(
-                new Player()
-                {
-                    Id = Player.BYE_ID,
-                    Name = "Bye"
-                }
-                
-            );
-            */
-            
-            
             context.SaveChanges();
         }
     }
