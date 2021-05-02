@@ -30,6 +30,7 @@ namespace TournamentProj.Services.DrawService
                     ConfigureRR(draw, drawCreation);
                     break;
                 case DrawType.MONRAD:
+                    throw new NotImplementedException();
                     break;
                 default:
                     throw new TournamentSoftwareException("Tried to create a draw with no DrawType specified.");
