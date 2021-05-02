@@ -35,9 +35,11 @@ namespace TournamentProj.Services.DrawService
 
         public Draw CreateAutomatic(DrawCreation drawCreation)
         {
-            var generatedDraw = DrawCreator.GenerateDraw(drawCreation,_drawRepository,_matchRepository,_matchDependencyRepository);
-            UpdateAllByeMatches(generatedDraw); //TODO fix CORS issue with this 
+            //IMPORTANT: Here it is important to first create the draw using SaveChanges() method ==> THen update the draw using it again
+            var generatedDraw = DrawCreator.GenerateDraw(drawCreation,_drawRepository,_matchRepository,_matchDependencyRepository, _dbContext);
             Create(generatedDraw);
+            UpdateAllByeMatches(generatedDraw);
+            Update(generatedDraw);
             return generatedDraw;
         }
 
@@ -75,41 +77,8 @@ namespace TournamentProj.Services.DrawService
                 if (match.P1Id == Player.BYE_ID || match.P2Id == Player.BYE_ID)
                 {
                     ExecuteByeMatch(draw,match);
-                    //_matchRepository.Update(match);
+                    _matchRepository.Update(match);
                 }
-                
-                
-                /*
-                //If match contains a bye
-                if (match.P1Id == -1 || match.P2Id == -1)
-                {
-                    match.Status = Status.FINISHED;
-                    match.P1Won = (match.P2Id == -1); // Player that is not a bye has now won
-                    
-                    
-                    //Update players in matches that depend on this one
-                    var dependentMatches = draw.Matches //TODO FIX CORS ERROR HERE
-                        .Where(m => (
-                            _matchDependencyRepository.FindById(m.P1DependencyId).DependencyId == match.Id 
-                            || _matchDependencyRepository.FindById(m.P2DependencyId).DependencyId == match.Id));
-                    
-                    //Go through matches that depend on this one to update their dependencies
-                    foreach (var dependentMatch in dependentMatches)
-                    {
-                        MatchDependency matchDependency;
-                        if (dependentMatch.P1DependencyId == match.Id)
-                        {
-                            matchDependency = _matchDependencyRepository.FindById(dependentMatch.P1DependencyId);
-                            dependentMatch.P1Id = FindResultingPlayerFromMatchDepdendency(matchDependency);
-                        }
-                        else
-                        {
-                            matchDependency = _matchDependencyRepository.FindById(dependentMatch.P2DependencyId);
-                            dependentMatch.P2Id = FindResultingPlayerFromMatchDependency(matchDependency);
-                        }
-                    }
-                } 
-                */
             }
         }
 
@@ -166,7 +135,7 @@ namespace TournamentProj.Services.DrawService
             //Update the status of the match
             match.UpdateStatus();
 
-            MatchFinished(match);
+            //MatchFinished(match);
             
             _matchRepository.Update(match);
         }

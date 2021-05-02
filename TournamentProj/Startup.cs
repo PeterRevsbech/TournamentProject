@@ -39,6 +39,7 @@ namespace TournamentProj
                     builder.WithOrigins("http://localhost:3000","https://localhost:3000")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
+                        .AllowCredentials()
                         ;
                 });
             });

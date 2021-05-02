@@ -24,10 +24,11 @@ namespace TournamentProj.DAL
 
         public Draw FindById(int id)
         {
+            
             var result= _dbSet.Where(draw => id == draw.Id)
                 .Include(draw => draw.Matches)
                 .FirstOrDefault();
-
+       
             return result;
         }
 

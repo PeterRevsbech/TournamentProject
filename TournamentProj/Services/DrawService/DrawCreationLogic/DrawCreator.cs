@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TournamentProj.Context;
 using TournamentProj.DAL;
 using TournamentProj.DAL.MatchDependencyRepository;
 using TournamentProj.Exceptions;
@@ -13,7 +14,8 @@ namespace TournamentProj.Services.DrawService
         public static Draw GenerateDraw(DrawCreation drawCreation,
             IDrawRepository drawRepository,
             IMatchRepository matchRepository,
-            IMatchDependencyRepository matchDependencyRepository)
+            IMatchDependencyRepository matchDependencyRepository,
+            ITournamentContext dbContext)
         {
             //TODO add logic here for recognizing specific score types, e.g. tennis, squash so on 
             var draw = new Draw();
