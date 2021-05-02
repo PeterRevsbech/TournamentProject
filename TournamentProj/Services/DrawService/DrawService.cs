@@ -135,7 +135,7 @@ namespace TournamentProj.Services.DrawService
             //Update the status of the match
             match.UpdateStatus();
 
-            //MatchFinished(match);
+            MatchFinished(match);
             
             _matchRepository.Update(match);
         }
