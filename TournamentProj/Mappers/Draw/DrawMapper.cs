@@ -17,7 +17,6 @@ namespace TournamentProj.Mappers
                 DrawType = DrawTypeFromDTO(dto.DrawTypeDTO),
                 Points = dto.Points,
                 Games = dto.Games,
-                Sets = dto.Sets,
                 TieBreaks = dto.TieBreaks
             };
 
@@ -34,7 +33,6 @@ namespace TournamentProj.Mappers
                 DrawTypeDTO = DrawTypeToDTO(draw.DrawType),
                 Points = draw.Points,
                 Games = draw.Games,
-                Sets = draw.Sets,
                 TieBreaks = draw.TieBreaks,
                 MatchIds = new List<int>()
             };
@@ -65,7 +63,6 @@ namespace TournamentProj.Mappers
                 playerIds = dto.playerIds,
                 DrawType = DrawTypeFromDTO(dto.DrawTypeDTO),
                 Name = dto.Name,
-                Sets = dto.Sets,
                 Games = dto.Games,
                 Points = dto.Points,
                 TieBreaks = dto.TieBreaks,
@@ -82,7 +79,6 @@ namespace TournamentProj.Mappers
                 playerIds = drawCreation.playerIds,
                 DrawTypeDTO = DrawTypeToDTO(drawCreation.DrawType),
                 Name = drawCreation.Name,
-                Sets = drawCreation.Sets,
                 Games = drawCreation.Games,
                 Points = drawCreation.Points,
                 TieBreaks = drawCreation.TieBreaks,

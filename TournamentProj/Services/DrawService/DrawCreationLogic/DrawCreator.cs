@@ -34,7 +34,6 @@ namespace TournamentProj.Services.DrawService
             }
             
             draw.Name = drawCreation.Name;
-            draw.Sets = drawCreation.Sets;
             draw.Games = drawCreation.Games;
             draw.Points = drawCreation.Points;
             draw.TournamentId = drawCreation.TournamentId;
@@ -225,8 +224,6 @@ namespace TournamentProj.Services.DrawService
                 round = round,
                 P1Games = 0,
                 P2Games = 0,
-                P1Sets = 0,
-                P2Sets = 0,
                 P1PointsArray = drawCreation.InitPoints(),
                 P2PointsArray = drawCreation.InitPoints()
             };

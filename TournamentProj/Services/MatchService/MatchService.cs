@@ -148,7 +148,7 @@ namespace TournamentProj.Services.MatchService
         {
             //Find the corresponding draw to find the scoring system
             var draw = _drawRepository.FindById(match.DrawId);
-            var maxGames = draw.Sets == 0 ? draw.Games : draw.Sets * draw.Games;
+            var maxGames = draw.Games;
             var minGames = (1 + maxGames) / 2;
 
             //Opponent automatically wins the match and match is finished
@@ -157,7 +157,6 @@ namespace TournamentProj.Services.MatchService
                 //If P1 was the bye
                 match.P1Won = false;
                 match.P2Games = minGames;
-                match.P2Sets = draw.Sets;
 
 
                 //Fill points array with max points for minimal number of games
@@ -178,7 +177,6 @@ namespace TournamentProj.Services.MatchService
                 //If P2 was the bye
                 match.P1Won = true;
                 match.P1Games = minGames;
-                match.P1Sets = draw.Sets;
 
                 //Fill points array with max points for minimal number of games
                 var arr1 = new int[minGames];
@@ -212,19 +210,19 @@ namespace TournamentProj.Services.MatchService
             //Format the string and check for errors
             var p1Points = new List<int>();
             var p2Points = new List<int>();
-            var setScores = matchReportDto.score.Split(" ");
-            int validSetCount = 0;
+            var gameScores = matchReportDto.score.Split(" ");
+            int validGameCount = 0;
             
-            for (int i = 0; i<setScores.Length;i++)
+            for (int i = 0; i<gameScores.Length;i++)
             {
                 try
                 {
-                    var pointStrings = setScores[i].Split("/");
+                    var pointStrings = gameScores[i].Split("/");
                     var p1 = Int32.Parse(pointStrings[0]); 
                     var p2 = Int32.Parse(pointStrings[1]); 
                     p1Points.Add(p1);
                     p2Points.Add(p2);
-                    validSetCount++;
+                    validGameCount++;
                 }
                 catch (Exception e)
                 {
@@ -233,26 +231,24 @@ namespace TournamentProj.Services.MatchService
                 }
             }
             
-            //Check that number of sets is as expected
-            var maxSets = draw.Sets == 0 ? draw.Games : draw.Sets * draw.Games; 
-            var minSets = (1 + maxSets) / 2;
-            if (validSetCount > maxSets) //Too many sets
+            //Check that number of games is as expected
+            var maxGames = draw.Games; 
+            var minGames = (1 + maxGames) / 2;
+            if (validGameCount > maxGames) //Too many games
             {
                 throw new TournamentSoftwareException(
-                    $"{validSetCount} valid sets in score-string {1}, but a maximum of {maxSets} " +
-                    $"allowed in draw with up to {draw.Sets} sets and {draw.Games} games.");
+                    $"{validGameCount} valid games in score-string {1}, but a maximum of {maxGames} allowed.");
             }
-            //Too few sets
-            if (validSetCount < minSets && draw.Sets!=0) //This lower bound only holds, if not using sets (only games)
+            //Too few games
+            if (validGameCount < minGames) 
             {
                 throw new TournamentSoftwareException(
-                    $"{validSetCount} valid sets in score-string {matchReportDto.score}," +
-                    $" but at least {minSets} were required in draw with up to " +
-                    $"{draw.Sets} sets and {draw.Games} games.");
+                    $"{validGameCount} valid games in score-string {matchReportDto.score}," +
+                    $" but at least {minGames} were required in draw with up to {draw.Games} games.");
             }
             
             //Check that points correspond to expected values
-            for (int i = 0; i < validSetCount; i++)
+            for (int i = 0; i < validGameCount; i++)
             {
                 var overMax = p1Points[i] > draw.Points || p2Points[i] > draw.Points;
 
@@ -280,30 +276,22 @@ namespace TournamentProj.Services.MatchService
             
             //Find the winner
             int p1Games=0, p2Games=0, p1PointsTotal=0, p2PointsTotal=0;
-            if (draw.Sets == 0)
+            for (int i = 0; i < validGameCount; i++)
             {
-                for (int i = 0; i < validSetCount; i++)
+                p1PointsTotal += p1Points[i];
+                p2PointsTotal += p2Points[i];
+                if (p1Points[i] > p2Points[i])
                 {
-                    p1PointsTotal += p1Points[i];
-                    p2PointsTotal += p2Points[i];
-                    if (p1Points[i] > p2Points[i])
-                    {
-                        p1Games++;
-                    } else if (p1Points[i] < p2Points[i])
-                    {
-                        p2Games++;
-                    }
-                    else
-                    {
-                        throw new TournamentSoftwareException(
-                            $"Game with equal score in score-string {matchReportDto.score}");
-                    }
+                    p1Games++;
+                } else if (p1Points[i] < p2Points[i])
+                {
+                    p2Games++;
                 }
-                
-            }
-            else
-            {
-                throw new NotImplementedException("Using sets is not yet supported");
+                else
+                {
+                    throw new TournamentSoftwareException(
+                        $"Game with equal score in score-string {matchReportDto.score}");
+                }
             }
 
             if (p1Games > p2Games)

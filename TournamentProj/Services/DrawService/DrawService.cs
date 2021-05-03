@@ -86,7 +86,7 @@ namespace TournamentProj.Services.DrawService
         //The following methods are copied from MatchService to avoid dependencies among services
         private void ExecuteByeMatch(Draw draw, Match match)
         {
-            var maxGames = draw.Sets == 0 ? draw.Games : draw.Sets * draw.Games;
+            var maxGames = draw.Games;
             var minGames = (1 + maxGames) / 2;
 
             //Opponent automatically wins the match and match is finished
@@ -95,7 +95,6 @@ namespace TournamentProj.Services.DrawService
                 //If P1 was the bye
                 match.P1Won = false;
                 match.P2Games = minGames;
-                match.P2Sets = draw.Sets;
 
 
                 //Fill points array with max points for minimal number of games
@@ -116,7 +115,6 @@ namespace TournamentProj.Services.DrawService
                 //If P2 was the bye
                 match.P1Won = true;
                 match.P1Games = minGames;
-                match.P1Sets = draw.Sets;
 
                 //Fill points array with max points for minimal number of games
                 var arr1 = new int[minGames];

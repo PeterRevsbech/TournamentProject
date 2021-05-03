@@ -12,8 +12,6 @@ namespace TournamentProj.DTO.Draw
 
         public string Name { get; set; }
 
-        public int Sets { get; set; }
-        
         public int Games { get; set; }
         
         public int Points { get; set; }

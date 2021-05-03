@@ -12,8 +12,6 @@ namespace TournamentProj.Model
 
         public string Name { get; set; }
 
-        public int Sets { get; set; }
-        
         public int Games { get; set; }
         
         public int Points { get; set; }
@@ -26,11 +24,8 @@ namespace TournamentProj.Model
 
         public int[] InitPoints()
         {
-            int gameSets = Sets == 0 ? Games : Games * Sets;
-            var points = new int[gameSets];
+            var points = new int[Games];
             return points;
         }
-
-    
     }
 }

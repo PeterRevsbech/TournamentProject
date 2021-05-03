@@ -17,8 +17,6 @@ namespace TournamentProj.Model
         public string Name { get; set; }
         public DrawType DrawType { get; set; }
         
-        public int Sets { get; set; }
-        
         public int Games { get; set; }
         
         public int Points { get; set; }

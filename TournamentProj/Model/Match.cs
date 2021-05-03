@@ -37,9 +37,7 @@ namespace TournamentProj.Model
         public bool P1Won { get; set; }
         
         public int P1Games { get; set; }
-        public int P1Sets { get; set; }
         public int P2Games { get; set; }
-        public int P2Sets { get; set; }
         
         [NotMapped]
         public int[] P2PointsArray
@@ -90,10 +88,8 @@ namespace TournamentProj.Model
                 Status = match.Status,
                 P1Won = match.P1Won,
                 P1Games = match.P1Games,
-                P1Sets = match.P1Sets,
                 P1PointsArray = match.P1PointsArray,
                 P2Games = match.P2Games,
-                P2Sets = match.P2Sets,
                 P2PointsArray = match.P2PointsArray,
                 P1DependencyId = match.P1DependencyId,
                 P2DependencyId = match.P2DependencyId,
