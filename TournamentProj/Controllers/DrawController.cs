@@ -45,7 +45,7 @@ namespace TournamentProj.Controllers
             
         [Route("Generate/")]
         [HttpPost]
-        //Automatically sets a draw up according to specifications is DrawCreationDTO
+        //Automatically sets a draw up according to specifications is DrawCreationDTO.
         public IActionResult PostAutomaticCreation(DrawCreationDTO dto)
         {
             var drawCreation = _mapper.FromCreationDTO(dto);
